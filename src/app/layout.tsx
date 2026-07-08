@@ -1,24 +1,37 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 
-const geistSans = Geist({
+const inter = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
+// Use a monospace stack for numeric/code areas
+const monoFont = Inter({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Brock Exchange — Admin Dashboard",
-  description: "Admin control panel for Brock Exchange crypto trading platform. Monitor markets, users, transactions, and wallets.",
-  keywords: ["Brock Exchange", "crypto", "admin", "dashboard", "trading"],
+  title: "Brock Exchange — Trade Smarter. Grow Faster.",
+  description: "Brock Exchange — premium crypto trading platform and admin console. Trade smarter, grow faster.",
+  keywords: ["Brock Exchange", "crypto", "exchange", "trading", "bitcoin", "ethereum", "admin"],
   authors: [{ name: "Brock Exchange" }],
+  icons: {
+    icon: "/brock-mark.svg",
+    apple: "/brock-logo.png",
+  },
+  openGraph: {
+    title: "Brock Exchange",
+    description: "Trade Smarter. Grow Faster.",
+    siteName: "Brock Exchange",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -29,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${inter.variable} ${monoFont.variable} antialiased`}
       >
         {children}
         <Toaster />

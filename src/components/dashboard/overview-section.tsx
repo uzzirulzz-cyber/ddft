@@ -65,7 +65,7 @@ export function OverviewSection({ onNavigate }: { onNavigate: (k: SectionKey) =>
               <p className="text-xs text-muted-foreground">Last 30 days · USD</p>
             </div>
             <div className="flex gap-2">
-              <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/15">
+              <Badge variant="secondary" className="bg-amber-500/10 text-amber-400 hover:bg-amber-500/15 border border-amber-500/20">
                 24h +12.4%
               </Badge>
             </div>
@@ -75,8 +75,8 @@ export function OverviewSection({ onNavigate }: { onNavigate: (k: SectionKey) =>
               <AreaChart data={volumeHistory} margin={{ top: 10, right: 8, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient id="volGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#10b981" stopOpacity={0.45} />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#2563eb" stopOpacity={0.5} />
+                    <stop offset="100%" stopColor="#2563eb" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
@@ -96,18 +96,19 @@ export function OverviewSection({ onNavigate }: { onNavigate: (k: SectionKey) =>
                 />
                 <Tooltip
                   contentStyle={{
-                    background: "oklch(0.21 0.018 165)",
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    background: "#0f172a",
+                    border: "1px solid rgba(245,158,11,0.25)",
                     borderRadius: "0.5rem",
                     fontSize: 12,
+                    color: "#f8fafc",
                   }}
-                  labelStyle={{ color: "rgba(255,255,255,0.7)" }}
+                  labelStyle={{ color: "#94a3b8" }}
                   formatter={(v: number) => [`$${v}M`, "Volume"]}
                 />
                 <Area
                   type="monotone"
                   dataKey="volume"
-                  stroke="#10b981"
+                  stroke="#2563eb"
                   strokeWidth={2}
                   fill="url(#volGradient)"
                 />
@@ -203,7 +204,7 @@ export function OverviewSection({ onNavigate }: { onNavigate: (k: SectionKey) =>
                   cursor={{ fill: "rgba(255,255,255,0.04)" }}
                   formatter={(v: number) => [fmtNum(v, 0), "Trades"]}
                 />
-                <Bar dataKey="trades" fill="#10b981" radius={[3, 3, 0, 0]} maxBarSize={14} />
+                <Bar dataKey="trades" fill="#2563eb" radius={[3, 3, 0, 0]} maxBarSize={14} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -323,7 +324,7 @@ export function OverviewSection({ onNavigate }: { onNavigate: (k: SectionKey) =>
                     initial={{ width: 0 }}
                     animate={{ width: `${g.share}%` }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="h-full rounded-full bg-emerald-400"
+                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-amber-500"
                   />
                 </div>
               </div>
@@ -344,6 +345,8 @@ function KpiCard({
 }) {
   const up = kpi.trend === "up";
   const TrendIcon = up ? TrendingUp : TrendingDown;
+  // KPI values use the Brock gold accent — positive deltas stay green, negative red.
+  // The sparkline itself is colored by trend direction.
   // build sparkline path
   const max = Math.max(...kpi.spark);
   const min = Math.min(...kpi.spark);
@@ -395,6 +398,8 @@ function KpiCard({
             strokeLinejoin="round"
           />
         </svg>
+        {/* Gold accent line under the value to anchor it visually */}
+        <div className="mt-2 h-px w-12 bg-gradient-to-r from-amber-500 to-transparent" />
       </Card>
     </motion.div>
   );

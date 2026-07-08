@@ -157,7 +157,7 @@ export function SettingsSection() {
             </Button>
             <Button
               size="sm"
-              className="h-8 bg-emerald-500 hover:bg-emerald-600 text-emerald-950"
+              className="h-8 btn-gold-gradient"
               onClick={save}
               disabled={!dirty}
             >

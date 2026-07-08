@@ -37,6 +37,9 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-gold: var(--gold);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -44,39 +47,52 @@
 }
 
 :root {
-  /* Brock Exchange — dark crypto theme by default */
+  /* Brock Exchange — premium crypto theme (navy + gold + blue) */
   --radius: 0.75rem;
-  --background: oklch(0.16 0.015 165);
-  --foreground: oklch(0.96 0.01 165);
-  --card: oklch(0.21 0.018 165);
-  --card-foreground: oklch(0.96 0.01 165);
-  --popover: oklch(0.21 0.018 165);
-  --popover-foreground: oklch(0.96 0.01 165);
-  --primary: oklch(0.7 0.18 162);
-  --primary-foreground: oklch(0.16 0.02 165);
-  --secondary: oklch(0.27 0.02 165);
-  --secondary-foreground: oklch(0.96 0.01 165);
-  --muted: oklch(0.26 0.015 165);
-  --muted-foreground: oklch(0.7 0.02 165);
-  --accent: oklch(0.3 0.025 165);
-  --accent-foreground: oklch(0.96 0.01 165);
-  --destructive: oklch(0.65 0.22 25);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.7 0.18 162);
-  --chart-1: oklch(0.7 0.18 162);
-  --chart-2: oklch(0.75 0.18 70);
-  --chart-3: oklch(0.65 0.22 25);
-  --chart-4: oklch(0.7 0.15 200);
-  --chart-5: oklch(0.75 0.16 300);
-  --sidebar: oklch(0.18 0.018 165);
-  --sidebar-foreground: oklch(0.96 0.01 165);
-  --sidebar-primary: oklch(0.7 0.18 162);
-  --sidebar-primary-foreground: oklch(0.16 0.02 165);
-  --sidebar-accent: oklch(0.26 0.025 165);
-  --sidebar-accent-foreground: oklch(0.96 0.01 165);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.7 0.18 162);
+
+  /* Core palette (matches the Brock Exchange brand CSS) */
+  --primary: #2563eb;       /* blue — primary actions */
+  --gold: #f59e0b;          /* gold — brand accent, KPIs, sidebar active */
+  --success: #10b981;       /* green — buy / positive */
+  --danger: #ef4444;        /* red — sell / negative */
+
+  /* Surfaces */
+  --background: #030712;    /* deep black */
+  --background-2: #0f172a;  /* navy */
+  --foreground: #f8fafc;
+  --card: #111827;
+  --card-foreground: #f8fafc;
+  --popover: #0f172a;
+  --popover-foreground: #f8fafc;
+
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+  --destructive: #ef4444;
+  --border: #1e293b;
+  --input: #1e293b;
+  --ring: #2563eb;
+
+  /* Charts */
+  --chart-1: #2563eb;       /* blue */
+  --chart-2: #f59e0b;       /* gold */
+  --chart-3: #10b981;       /* green */
+  --chart-4: #ef4444;       /* red */
+  --chart-5: #8b5cf6;       /* purple */
+
+  /* Sidebar */
+  --sidebar: #020617;
+  --sidebar-foreground: #cbd5e1;
+  --sidebar-primary: #f59e0b;
+  --sidebar-primary-foreground: #020617;
+  --sidebar-accent: #1e293b;
+  --sidebar-accent-foreground: #f59e0b;
+  --sidebar-border: rgba(255, 255, 255, 0.05);
+  --sidebar-ring: #2563eb;
 }
 
 @layer base {
@@ -84,36 +100,123 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+    background-attachment: fixed;
     font-feature-settings: "tnum" 1, "cv11" 1;
+    min-height: 100vh;
   }
-  /* Custom scrollbar */
+  /* Custom scrollbar — gold thumb on dark track */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(2, 6, 23, 0.4);
   }
   ::-webkit-scrollbar-thumb {
-    background: oklch(1 0 0 / 12%);
-    border-radius: 4px;
+    background: linear-gradient(180deg, #2563eb, #f59e0b);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(1 0 0 / 20%);
+    background: linear-gradient(180deg, #3b82f6, #fbbf24);
   }
 }
 
-/* Animated number ticker */
+/* ===== Brock Exchange utility classes ===== */
+
+/* Glassmorphism card with subtle blue glow on hover */
+.card-gradient {
+  background: rgba(17, 24, 39, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+.card-gradient:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.12);
+}
+
+/* Strong glow for primary CTAs (blue) */
+.glow-blue {
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.45);
+}
+/* Strong glow for gold CTAs */
+.glow-gold {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
+}
+
+/* Brand gradient text — for hero / large brand moments */
+.brand-gradient {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #2563eb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Pulse dot for "live" indicators */
 @keyframes pulse-glow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(1.25); }
 }
 .pulse-dot {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Subtle gradient bg for cards */
-.card-gradient {
-  background: linear-gradient(135deg, oklch(0.22 0.02 165) 0%, oklch(0.19 0.018 165) 100%);
+/* Primary button (blue gradient) — used for main CTAs */
+.btn-primary-gradient {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-primary-gradient:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.45);
+}
+
+/* Gold button — used for special CTAs (Add user, Save changes, etc.) */
+.btn-gold-gradient {
+  background: linear-gradient(135deg, #f59e0b 0%, #facc15 100%);
+  color: #020617;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-gold-gradient:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
+}
+
+/* Sidebar active link accent (gold) */
+.nav-active-gold {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+/* Sticky header backdrop */
+.header-backdrop {
+  background: rgba(5, 10, 25, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Subtle dotted background pattern for hero/empty areas */
+.bg-dots {
+  background-image: radial-gradient(rgba(245, 158, 11, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Animated ticker bar (top-of-page marquee) */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: inline-flex;
+  animation: ticker 40s linear infinite;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
 }

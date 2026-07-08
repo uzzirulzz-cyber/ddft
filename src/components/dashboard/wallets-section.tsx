@@ -181,7 +181,7 @@ export function WalletsSection() {
               <ArrowUpRight className="h-3.5 w-3.5 mr-1.5" />
               Withdraw
             </Button>
-            <Button size="sm" className="h-8 bg-emerald-500 hover:bg-emerald-600 text-emerald-950">
+            <Button size="sm" className="h-8 btn-gold-gradient">
               <Shield className="h-3.5 w-3.5 mr-1.5" />
               Rebalance
             </Button>

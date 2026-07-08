@@ -158,7 +158,7 @@ export function UsersSection() {
               <Download className="h-4 w-4 mr-1.5" />
               Export
             </Button>
-            <Button size="sm" className="h-9 bg-emerald-500 hover:bg-emerald-600 text-emerald-950">
+            <Button size="sm" className="h-9 btn-gold-gradient">
               <UserPlus className="h-4 w-4 mr-1.5" />
               Add user
             </Button>
