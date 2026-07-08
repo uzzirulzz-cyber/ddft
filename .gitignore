@@ -30,12 +30,20 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# ─── Confidential — NEVER commit ────────────────────────────
+.env
+.env.local
+.env.*.local
+# Keep .env.example visible (has placeholder values only)
+!.env.example
+
+# database (contains real user data)
+/db/
+*.db
+*.db-journal
 
 # vercel
 .vercel
-
 
 # typescript
 *.tsbuildinfo
@@ -46,9 +54,13 @@ local-*
 *.log
 dev.log
 dev.out.log
+server.log
 test
 prompt
+upload/
 
-server.log
 # Skills directory
 /skills/
+
+# agent browser cache
+.agent-browser/

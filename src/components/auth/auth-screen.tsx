@@ -183,7 +183,7 @@ export function AuthScreen() {
                   <FormField
                     icon={Gift}
                     label="Invitation Code"
-                    placeholder="e.g. ADMIN2026"
+                    placeholder="Enter your invitation code"
                     value={reg.invitationCode}
                     onChange={(v) => setReg({ ...reg, invitationCode: v })}
                     required

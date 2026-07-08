@@ -1,5 +1,8 @@
 // Seed script for BlockExchange.buzz
 // Run with: bun run db:seed
+//
+// Credentials are read from environment variables. Copy .env.example to .env
+// and fill in real values before seeding. Never commit real credentials.
 
 import { db } from "../src/lib/db";
 import { hashPassword, generateUid } from "../src/lib/auth";
@@ -7,12 +10,13 @@ import { hashPassword, generateUid } from "../src/lib/auth";
 async function seed() {
   console.log("🌱 Seeding BlockExchange.buzz database...\n");
 
-  // ─── Super Admin ───────────────────────────────────────────
-  const superAdminEmail = "crdbixx@gmail.com";
+  // ─── Super Admin (from env) ────────────────────────────────
+  const superAdminEmail = process.env.SUPER_ADMIN_EMAIL || "admin@blockexchange.buzz";
+  const superAdminPassword = process.env.SUPER_ADMIN_PASSWORD || "ChangeMeInProduction!";
   const existingSuper = await db.user.findUnique({ where: { email: superAdminEmail } });
 
   if (!existingSuper) {
-    const passwordHash = await hashPassword("123playbeat");
+    const passwordHash = await hashPassword(superAdminPassword);
     const admin = await db.user.create({
       data: {
         uid: "BX-SUPERADMIN",
@@ -36,36 +40,30 @@ async function seed() {
       },
     });
 
-    console.log(`✅ Super Admin created:`);
-    console.log(`   Email: ${superAdminEmail}`);
-    console.log(`   Password: 123playbeat`);
-    console.log(`   UID: BX-SUPERADMIN\n`);
+    console.log("✅ Super Admin created (from environment variables)");
   } else {
-    console.log("ℹ️  Super Admin already exists\n");
+    console.log("ℹ️  Super Admin already exists");
   }
 
-  // ─── Sub-Agent Accounts (5 agents with invitation codes) ──
-  const subAgents = [
-    { name: "SubAgent 1", email: "subagent1@trade.com", code: "PB-AG001" },
-    { name: "SubAgent 2", email: "subagent2@trade2.com", code: "PB-AG002" },
-    { name: "SubAgent 3", email: "subagent3@trade3.com", code: "PB-AG003" },
-    { name: "SubAgent 4", email: "subagent4@trade4.com", code: "PB-AG004" },
-    { name: "SubAgent 5", email: "subagent5@trade5.com", code: "PB-AG005" },
-  ];
+  // ─── Sub-Agent Accounts (from env) ────────────────────────
+  // Format: AGENT_1_EMAIL, AGENT_1_PASSWORD, AGENT_1_CODE, etc.
+  const defaultAgentPassword = process.env.AGENT_DEFAULT_PASSWORD || "default";
 
-  const defaultPasswordHash = await hashPassword("default");
+  for (let i = 1; i <= 5; i++) {
+    const email = process.env[`AGENT_${i}_EMAIL`] || `subagent${i}@trade.com`;
+    const code = process.env[`AGENT_${i}_CODE`] || `PB-AG00${i}`;
+    const name = `SubAgent ${i}`;
 
-  for (const sa of subAgents) {
-    const existing = await db.user.findUnique({ where: { email: sa.email } });
+    const existing = await db.user.findUnique({ where: { email } });
     if (existing) {
-      console.log(`ℹ️  ${sa.name} already exists (${sa.email})`);
+      console.log(`ℹ️  ${name} already exists`);
       continue;
     }
 
     // Ensure invitation code is unique
-    const codeOwner = await db.user.findUnique({ where: { referralCode: sa.code } });
+    const codeOwner = await db.user.findUnique({ where: { referralCode: code } });
     if (codeOwner) {
-      console.log(`⚠️  Invitation code ${sa.code} already in use — skipping ${sa.name}`);
+      console.log(`⚠️  Code ${code} already in use — skipping ${name}`);
       continue;
     }
 
@@ -75,32 +73,26 @@ async function seed() {
     const agent = await db.user.create({
       data: {
         uid,
-        email: sa.email,
-        passwordHash: defaultPasswordHash,
-        name: sa.name,
+        email,
+        passwordHash: await hashPassword(defaultAgentPassword),
+        name,
         role: "AGENT",
         status: "ACTIVE",
         kycStatus: "VERIFIED",
-        referralCode: sa.code,
-        mustChangePassword: true, // must change default password on first login
+        referralCode: code,
+        mustChangePassword: true,
       },
     });
 
-    // Create agent profile + wallet
     await db.agent.create({
-      data: {
-        userId: agent.id,
-        commissionRate: 10,
-      },
+      data: { userId: agent.id, commissionRate: 10 },
     });
     await db.wallet.create({
       data: { userId: agent.id, available: 0 },
     });
 
-    console.log(`✅ ${sa.name}: ${sa.email} / default · Code: ${sa.code}`);
+    console.log(`✅ ${name} created · Code: ${code}`);
   }
-
-  console.log("");
 
   // ─── System notifications ──────────────────────────────────
   const existingNotifs = await db.systemNotification.count();
@@ -127,28 +119,10 @@ async function seed() {
         },
       ],
     });
-    console.log("✅ System notifications created\n");
+    console.log("✅ System notifications created");
   }
 
-  console.log("🎉 Seed complete!\n");
-  console.log("═══════════════════════════════════════════════════════");
-  console.log("  BlockExchange.buzz — Default Accounts");
-  console.log("═══════════════════════════════════════════════════════");
-  console.log("");
-  console.log("  Super Admin:");
-  console.log("    Email:    crdbixx@gmail.com");
-  console.log("    Password: 123playbeat");
-  console.log("    UID:      BX-SUPERADMIN");
-  console.log("");
-  console.log("  Sub-Agents (must change password on first login):");
-  console.log("    subagent1@trade.com  / default  · Code: PB-AG001");
-  console.log("    subagent2@trade2.com / default  · Code: PB-AG002");
-  console.log("    subagent3@trade3.com / default  · Code: PB-AG003");
-  console.log("    subagent4@trade4.com / default  · Code: PB-AG004");
-  console.log("    subagent5@trade5.com / default  · Code: PB-AG005");
-  console.log("");
-  console.log("  Customers register using one of the PB-AG00X codes above.");
-  console.log("═══════════════════════════════════════════════════════\n");
+  console.log("\n🎉 Seed complete! Configure credentials in your .env file.\n");
 }
 
 seed()
