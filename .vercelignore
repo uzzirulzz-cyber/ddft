@@ -1,0 +1,18 @@
+# Files to exclude from Vercel deployment
+db/
+*.db
+*.db-journal
+.env
+.env.local
+dev.log
+server.log
+upload/
+skills/
+.agent-browser/
+.z-ai-config/
+.zscripts/
+scripts/
+prisma/seed.ts
+*.md
+!README.md
+.git
