@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Loader2, CheckCircle, XCircle, Eye, Clock } from "lucide-react";
+import { Loader2, CheckCircle, XCircle, Eye, Clock, AlertCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,37 +14,34 @@ import { toast } from "sonner";
 export function AdminPayments() {
   const [txs, setTxs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState("PENDING");
   const [typeFilter, setTypeFilter] = useState("all");
   const [viewTx, setViewTx] = useState<any | null>(null);
 
-  const load = () => {
+  const load = async () => {
     setLoading(true);
-    const params = new URLSearchParams();
-    if (statusFilter !== "ALL") params.set("status", statusFilter);
-    if (typeFilter !== "all") params.set("type", typeFilter);
-    fetch(`/api/admin/payments?${params}`)
-      .then(r => r.json())
-      .then(d => {
-        setTxs(d.transactions || []);
-        setLoading(false);
-      });
+    setError(null);
+    try {
+      const params = new URLSearchParams();
+      if (statusFilter !== "ALL") params.set("status", statusFilter);
+      if (typeFilter !== "all") params.set("type", typeFilter);
+      const res = await fetch(`/api/admin/payments?${params}`);
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || `HTTP ${res.status}`);
+      }
+      const d = await res.json();
+      setTxs(d.transactions || []);
+    } catch (e: any) {
+      setError(e.message || "Failed to fetch payments");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    let cancelled = false;
-    const params = new URLSearchParams();
-    if (statusFilter !== "ALL") params.set("status", statusFilter);
-    if (typeFilter !== "all") params.set("type", typeFilter);
-    fetch(`/api/admin/payments?${params}`)
-      .then(r => r.json())
-      .then(d => {
-        if (!cancelled) {
-          setTxs(d.transactions || []);
-          setLoading(false);
-        }
-      });
-    return () => { cancelled = true; };
+    load();
   }, [statusFilter, typeFilter]);
 
   const handleAction = async (tx: any, action: string) => {
@@ -65,6 +62,21 @@ export function AdminPayments() {
       toast.error(e.message);
     }
   };
+
+  if (loading) return <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>;
+
+  if (error) {
+    return (
+      <div className="max-w-6xl mx-auto">
+        <Card className="card-gradient p-8 text-center">
+          <AlertCircle className="h-12 w-12 mx-auto text-red-400 mb-4" />
+          <h3 className="text-lg font-bold mb-2">Failed to Load Payments</h3>
+          <p className="text-sm text-muted-foreground mb-4">{error}</p>
+          <Button onClick={load} variant="outline" size="sm">Retry</Button>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl mx-auto space-y-4">
@@ -92,10 +104,11 @@ export function AdminPayments() {
 
       {/* Table */}
       <Card className="card-gradient p-0 overflow-hidden">
-        {loading ? (
-          <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
-        ) : txs.length === 0 ? (
-          <p className="text-center py-12 text-sm text-muted-foreground">No transactions found</p>
+        {txs.length === 0 ? (
+          <div className="text-center py-12">
+            <Clock className="h-12 w-12 mx-auto text-muted-foreground mb-3" />
+            <p className="text-sm text-muted-foreground">No payment requests found</p>
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -104,7 +117,7 @@ export function AdminPayments() {
                   <th className="text-left font-medium pl-4 py-3">Transaction</th>
                   <th className="text-left font-medium py-3 hidden md:table-cell">User</th>
                   <th className="text-left font-medium py-3">Type</th>
-                  <th className="text-right font-medium py-3">Amount</th>
+                  <th className="text-right font-medium py-3">Amount (USD)</th>
                   <th className="text-center font-medium py-3 hidden sm:table-cell">Method</th>
                   <th className="text-center font-medium py-3">Status</th>
                   <th className="text-right font-medium pr-4 py-3">Actions</th>

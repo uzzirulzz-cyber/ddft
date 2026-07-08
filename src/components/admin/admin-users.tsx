@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import {
   Search, Loader2, MoreHorizontal, DollarSign, Ban, CheckCircle,
-  Snowflake, Shield, UserX, UserCheck, Send,
+  Snowflake, Shield, UserX, UserCheck, Send, AlertCircle,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,7 @@ import { toast } from "sonner";
 export function AdminUsers() {
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -30,18 +31,26 @@ export function AdminUsers() {
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
 
-  const load = () => {
+  const load = async () => {
     setLoading(true);
-    const params = new URLSearchParams();
-    if (query) params.set("q", query);
-    if (roleFilter !== "all") params.set("role", roleFilter);
-    if (statusFilter !== "all") params.set("status", statusFilter);
-    fetch(`/api/admin/users?${params}`)
-      .then(r => r.json())
-      .then(d => {
-        setUsers(d.users || []);
-        setLoading(false);
-      });
+    setError(null);
+    try {
+      const params = new URLSearchParams();
+      if (query) params.set("q", query);
+      if (roleFilter !== "all") params.set("role", roleFilter);
+      if (statusFilter !== "all") params.set("status", statusFilter);
+      const res = await fetch(`/api/admin/users?${params}`);
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d.error || `HTTP ${res.status}`);
+      }
+      const d = await res.json();
+      setUsers(d.users || []);
+    } catch (e: any) {
+      setError(e.message || "Failed to fetch users");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -125,6 +134,12 @@ export function AdminUsers() {
       <Card className="card-gradient p-0 overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <AlertCircle className="h-12 w-12 mx-auto text-red-400 mb-3" />
+            <p className="text-sm text-red-400 mb-2">{error}</p>
+            <Button onClick={load} variant="outline" size="sm">Retry</Button>
+          </div>
         ) : users.length === 0 ? (
           <p className="text-center py-12 text-sm text-muted-foreground">No users found</p>
         ) : (

@@ -7,6 +7,7 @@ import {
   BarChart3, Activity, Snowflake, Loader2, AlertCircle,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   Area, AreaChart, Bar, BarChart, CartesianGrid,
@@ -18,19 +19,45 @@ export function AdminDashboard() {
   const [stats, setStats] = useState<any>(null);
   const [recentUsers, setRecentUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetch("/api/admin/stats")
-      .then(r => r.json())
-      .then(d => {
-        setStats(d.stats);
-        setRecentUsers(d.recentUsers || []);
-        setLoading(false);
-      });
-  }, []);
+  const load = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/admin/stats");
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d.error || `HTTP ${res.status}`);
+      }
+      const d = await res.json();
+      setStats(d.stats);
+      setRecentUsers(d.recentUsers || []);
+    } catch (e: any) {
+      setError(e.message || "Failed to load stats");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { load(); }, []);
 
   if (loading) return <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>;
-  if (!stats) return <div className="text-center py-12 text-muted-foreground">Failed to load stats</div>;
+
+  if (error) {
+    return (
+      <div className="max-w-7xl mx-auto">
+        <Card className="card-gradient p-8 text-center">
+          <AlertCircle className="h-12 w-12 mx-auto text-red-400 mb-4" />
+          <h3 className="text-lg font-bold mb-2">Failed to Load Dashboard</h3>
+          <p className="text-sm text-muted-foreground mb-4">{error}</p>
+          <Button onClick={load} variant="outline" size="sm">Retry</Button>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!stats) return <div className="text-center py-12 text-muted-foreground">No data available</div>;
 
   const statCards = [
     { label: "Total Users", value: fmtNum(stats.totalUsers, 0), icon: Users, color: "text-blue-400", bg: "bg-blue-500/10" },
