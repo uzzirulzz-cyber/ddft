@@ -46,6 +46,8 @@ import {
   Clock,
   Send,
   Loader2,
+  AlertTriangle,
+  Trash2,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-store";
 import { COINS } from "@/lib/market-data";
@@ -206,6 +208,10 @@ function DashboardSection({ apiFetch }: { apiFetch: any }) {
   const [series, setSeries] = useState<any[]>([]);
   const [coinVol, setCoinVol] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showReset, setShowReset] = useState(false);
+  const [resetConfirm, setResetConfirm] = useState("");
+  const [resetting, setResetting] = useState(false);
+  const [resetResult, setResetResult] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const fetch = async () => {
     setLoading(true);
@@ -228,6 +234,29 @@ function DashboardSection({ apiFetch }: { apiFetch: any }) {
     fetch();
      
   }, []);
+
+  const handleReset = async () => {
+    setResetting(true);
+    setResetResult(null);
+    try {
+      const res = await apiFetch("/api/admin/reset", {
+        method: "POST",
+        body: JSON.stringify({ confirm: "RESET_ALL_DATA" }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setResetResult({ type: "success", text: data.message || "Platform reset to zero successfully" });
+        setShowReset(false);
+        setResetConfirm("");
+        setTimeout(() => { fetch(); window.location.reload(); }, 2000);
+      } else {
+        setResetResult({ type: "error", text: data.error || "Reset failed" });
+      }
+    } catch (e: any) {
+      setResetResult({ type: "error", text: e.message });
+    }
+    setResetting(false);
+  };
 
   const cards: { label: string; value: string | number; icon: any; color: string }[] = stats
     ? [
@@ -323,6 +352,48 @@ function DashboardSection({ apiFetch }: { apiFetch: any }) {
           </div>
         </Card>
       </div>
+
+      {/* Reset Platform to Zero — Danger Zone */}
+      <Card className="bx-glass p-4 border-red-500/20">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-500/15 shrink-0">
+              <AlertTriangle className="h-5 w-5 text-red-400" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-red-400">Danger Zone — Reset Dashboard to Zero</h3>
+              <p className="text-xs text-muted-foreground mt-1">
+                Permanently delete ALL data (users, trades, transactions, messages, logs). Only default accounts (1 Super Admin + 5 Sub-Agents) will remain.
+              </p>
+            </div>
+          </div>
+          {!showReset ? (
+            <Button variant="outline" size="sm" className="border-red-500/40 text-red-400 hover:bg-red-500/10 shrink-0" onClick={() => setShowReset(true)}>
+              <Trash2 className="h-3.5 w-3.5 mr-1" /> Reset to Zero
+            </Button>
+          ) : (
+            <div className="flex items-center gap-2 shrink-0">
+              <input
+                type="text"
+                placeholder='Type "RESET"'
+                value={resetConfirm}
+                onChange={(e) => setResetConfirm(e.target.value)}
+                className="h-8 w-24 px-2 text-xs rounded bg-white/5 border border-white/10"
+                autoFocus
+              />
+              <Button size="sm" className="bg-red-500 hover:bg-red-600 text-white h-8" disabled={resetConfirm !== "RESET" || resetting} onClick={handleReset}>
+                {resetting ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Reset Now"}
+              </Button>
+              <Button variant="outline" size="sm" className="h-8" onClick={() => { setShowReset(false); setResetConfirm(""); }}>Cancel</Button>
+            </div>
+          )}
+        </div>
+        {resetResult && (
+          <div className={`mt-3 rounded-lg px-3 py-2 text-xs ${resetResult.type === "success" ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : "bg-red-500/10 text-red-400 border border-red-500/20"}`}>
+            {resetResult.text}
+          </div>
+        )}
+      </Card>
     </div>
   );
 }
