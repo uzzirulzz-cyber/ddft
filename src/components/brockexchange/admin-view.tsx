@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   Area,
@@ -43,8 +43,12 @@ import {
   XCircle,
   Trophy,
   Activity,
+  Clock,
+  Send,
+  Loader2,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-store";
+import { COINS } from "@/lib/market-data";
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -171,10 +175,10 @@ export function AdminView() {
           {section === "payments" && <PaymentsSection apiFetch={apiFetch} />}
           {section === "reports" && <ReportsSection apiFetch={apiFetch} />}
           {section === "settings" && <SettingsSection />}
-          {section === "market" && <PlaceholderSection icon={Coins} title="Market Management" />}
-          {section === "wallet" && <PlaceholderSection icon={Wallet} title="Wallet Management" />}
-          {section === "messaging" && <PlaceholderSection icon={MessageSquare} title="Messaging" />}
-          {section === "security" && <PlaceholderSection icon={ShieldCheck} title="Security" />}
+          {section === "market" && <MarketSection apiFetch={apiFetch} />}
+          {section === "wallet" && <WalletSection apiFetch={apiFetch} />}
+          {section === "messaging" && <MessagingSection apiFetch={apiFetch} />}
+          {section === "security" && <SecuritySection apiFetch={apiFetch} />}
         </main>
       </div>
     </div>
@@ -1075,21 +1079,406 @@ function SettingsSection() {
   );
 }
 
-function PlaceholderSection({ icon: Icon, title }: { icon: any; title: string }) {
+// ─── Market Management section ─────────────────────────────────
+function MarketSection({ apiFetch }: { apiFetch: any }) {
+  const [coins, setCoins] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Use local COINS data + fetch trade volume per coin
+    (async () => {
+      try {
+        const res = await apiFetch("/api/admin/trades");
+        const data = await res.json();
+        const trades = data.trades || [];
+        // Count trades per symbol
+        const counts: Record<string, number> = {};
+        trades.forEach((t: any) => { counts[t.symbol] = (counts[t.symbol] || 0) + 1; });
+        const coinData = COINS.map(c => ({
+          ...c,
+          tradeCount: counts[c.symbol] || 0,
+          volume: (counts[c.symbol] || 0) * c.basePrice,
+        }));
+        setCoins(coinData);
+      } catch { /* noop */ }
+      setLoading(false);
+    })();
+  }, []);
+
   return (
-    <div className="flex items-center justify-center h-full min-h-[60vh]">
-      <div className="bx-glass rounded-2xl p-10 text-center max-w-md">
-        <div className="h-16 w-16 rounded-2xl bx-blue-gradient bx-glow flex items-center justify-center mx-auto mb-4">
-          <Icon className="h-8 w-8 text-white" />
-        </div>
-        <h2 className="text-lg font-bold">{title}</h2>
-        <p className="text-sm text-muted-foreground mt-2">
-          This section is coming soon. Stay tuned — we&apos;re rolling out new admin tools regularly.
-        </p>
-        <Badge variant="outline" className="mt-4 border-[#f59e0b]/40 text-[#f59e0b]">
-          Coming Soon
-        </Badge>
+    <div className="space-y-4">
+      <h2 className="text-xl font-bold">Market Management</h2>
+      <p className="text-sm text-muted-foreground">All {COINS.length} supported cryptocurrencies + trade volume</p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {loading ? (
+          <p className="text-muted-foreground">Loading...</p>
+        ) : coins.map((coin) => (
+          <div key={coin.symbol} className="bx-glass rounded-xl p-4">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-10 w-10 flex items-center justify-center rounded-full text-base font-bold shrink-0"
+                style={{ background: `${coin.color}25`, color: coin.color }}>{coin.icon}</span>
+              <div className="flex-1">
+                <p className="text-sm font-bold">{coin.symbol}</p>
+                <p className="text-[10px] text-muted-foreground">{coin.name}</p>
+              </div>
+              <Badge variant="outline" className="text-[10px] border-emerald-400/30 text-emerald-400">Active</Badge>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="bg-white/5 rounded-lg p-2">
+                <p className="text-[9px] text-muted-foreground">Base Price</p>
+                <p className="font-mono font-semibold">${coin.basePrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+              </div>
+              <div className="bg-white/5 rounded-lg p-2">
+                <p className="text-[9px] text-muted-foreground">Trades</p>
+                <p className="font-mono font-semibold">{coin.tradeCount}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
+    </div>
+  );
+}
+
+// ─── Wallet Management section ─────────────────────────────────
+function WalletSection({ apiFetch }: { apiFetch: any }) {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await apiFetch("/api/admin/wallet-summary");
+        const d = await res.json();
+        if (res.ok) setData(d);
+      } catch { /* noop */ }
+      setLoading(false);
+    })();
+  }, []);
+
+  if (loading) return <p className="text-muted-foreground">Loading...</p>;
+  if (!data) return <p className="text-muted-foreground">Failed to load</p>;
+
+  const s = data.summary;
+  const cards = [
+    { label: "Total Customer Balance", value: `$${s.totalBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })}`, color: "text-[#ffd700]", icon: Wallet },
+    { label: "Frozen Balance", value: `$${s.frozenBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })}`, color: "text-red-400", icon: ShieldCheck },
+    { label: "Total Deposits", value: `$${s.totalDeposits.toLocaleString("en-US", { minimumFractionDigits: 2 })}`, color: "text-emerald-400", icon: CreditCard },
+    { label: "Total Withdrawals", value: `$${s.totalWithdrawals.toLocaleString("en-US", { minimumFractionDigits: 2 })}`, color: "text-red-400", icon: CreditCard },
+    { label: "Pending Deposits", value: String(s.pendingDeposits), color: "text-amber-400", icon: Clock },
+    { label: "Pending Withdrawals", value: String(s.pendingWithdrawals), color: "text-amber-400", icon: Clock },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xl font-bold">Wallet Management</h2>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        {cards.map((c, i) => (
+          <div key={i} className="bx-glass rounded-xl p-4">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-[10px] text-muted-foreground uppercase">{c.label}</p>
+                <p className={`mt-1 text-lg font-bold ${c.color}`}>{c.value}</p>
+              </div>
+              <c.icon className="h-5 w-5 text-muted-foreground" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="bx-glass rounded-xl overflow-hidden">
+        <div className="p-4 border-b border-white/5">
+          <h3 className="font-semibold text-sm">Top 5 Users by Balance</h3>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="border-b border-white/5 text-muted-foreground">
+                <th className="text-left py-2 px-4">User</th>
+                <th className="text-left py-2 px-4">UID</th>
+                <th className="text-right py-2 px-4">Balance</th>
+                <th className="text-center py-2 px-4">Tier</th>
+                <th className="text-center py-2 px-4">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.topUsers.map((u: any) => (
+                <tr key={u.id} className="border-b border-white/5 hover:bg-white/5">
+                  <td className="py-2 px-4">
+                    <p className="font-medium">{u.name}</p>
+                    <p className="text-[10px] text-muted-foreground">{u.email}</p>
+                  </td>
+                  <td className="py-2 px-4 font-mono text-[#ffd700]">{u.uid}</td>
+                  <td className="py-2 px-4 text-right font-mono font-bold">${u.balance.toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
+                  <td className="py-2 px-4 text-center">L{u.vipLevel}</td>
+                  <td className="py-2 px-4 text-center">
+                    <Badge variant="outline" className={`text-[9px] ${u.status === "ACTIVE" ? "border-emerald-400/30 text-emerald-400" : "border-red-400/30 text-red-400"}`}>
+                      {u.status}
+                    </Badge>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Messaging section (customer support conversations) ────────
+function MessagingSection({ apiFetch }: { apiFetch: any }) {
+  const [conversations, setConversations] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedConv, setSelectedConv] = useState<string | null>(null);
+  const [messages, setMessages] = useState<any[]>([]);
+  const [reply, setReply] = useState("");
+  const [sending, setSending] = useState(false);
+
+  const loadConvs = useCallback(async () => {
+    try {
+      const res = await apiFetch("/api/admin/conversations");
+      const data = await res.json();
+      if (res.ok) setConversations(data.conversations || []);
+    } catch { /* noop */ }
+    setLoading(false);
+  }, [apiFetch]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await apiFetch("/api/admin/conversations");
+        const data = await res.json();
+        if (!cancelled && res.ok) setConversations(data.conversations || []);
+      } catch { /* noop */ }
+      if (!cancelled) setLoading(false);
+    })();
+    return () => { cancelled = true; };
+  }, [apiFetch]);
+
+  const loadMessages = async (convId: string) => {
+    try {
+      const res = await apiFetch(`/api/messages/conversations/${convId}`);
+      const data = await res.json();
+      if (res.ok) {
+        setSelectedConv(convId);
+        setMessages(data.conversation?.messages || []);
+      }
+    } catch { /* noop */ }
+  };
+
+  // Poll for new messages every 3s
+  useEffect(() => {
+    if (!selectedConv) return;
+    const id = setInterval(async () => {
+      try {
+        const res = await apiFetch(`/api/messages/conversations/${selectedConv}`);
+        const data = await res.json();
+        if (res.ok) setMessages(data.conversation?.messages || []);
+      } catch { /* noop */ }
+    }, 3000);
+    return () => clearInterval(id);
+  }, [selectedConv]);
+
+  const sendReply = async () => {
+    if (!reply.trim() || !selectedConv) return;
+    setSending(true);
+    try {
+      await apiFetch("/api/messages/send", {
+        method: "POST",
+        body: JSON.stringify({ conversationId: selectedConv, body: reply }),
+      });
+      setReply("");
+      loadMessages(selectedConv);
+    } catch { /* noop */ }
+    setSending(false);
+  };
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xl font-bold">Customer Support Messages</h2>
+      <p className="text-sm text-muted-foreground">All customer conversations — respond in real-time</p>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4 h-[70vh]">
+        {/* Conversation list */}
+        <div className="bx-glass rounded-xl overflow-hidden">
+          <div className="p-3 border-b border-white/5">
+            <p className="text-xs font-semibold">Conversations ({conversations.length})</p>
+          </div>
+          <div className="overflow-y-auto max-h-[60vh]">
+            {loading ? (
+              <p className="text-center py-8 text-muted-foreground text-sm">Loading...</p>
+            ) : conversations.length === 0 ? (
+              <p className="text-center py-8 text-muted-foreground text-sm">No conversations</p>
+            ) : conversations.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => loadMessages(c.id)}
+                className={`w-full text-left p-3 border-b border-white/5 transition-colors ${selectedConv === c.id ? "bg-[#ffd700]/10" : "hover:bg-white/5"}`}
+              >
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-medium">{c.customer?.name}</p>
+                  <span className="text-[9px] text-muted-foreground">{c._count?.messages || 0} msgs</span>
+                </div>
+                <p className="text-[10px] text-muted-foreground">{c.customer?.uid}</p>
+                {c.messages?.[0] && <p className="text-[10px] text-muted-foreground truncate mt-1">{c.messages[0].body}</p>}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Chat panel */}
+        <div className="bx-glass rounded-xl flex flex-col">
+          {selectedConv ? (
+            <>
+              <div className="p-3 border-b border-white/5 flex items-center justify-between">
+                <p className="text-sm font-semibold">Conversation</p>
+                <span className="flex items-center gap-1.5 text-[10px] text-emerald-400">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400 bx-pulse-dot" /> Live
+                </span>
+              </div>
+              <div className="flex-1 overflow-y-auto p-4 space-y-2 max-h-[50vh]">
+                {messages.map((m) => (
+                  <div key={m.id} className={`flex ${m.senderId === conversations.find(c => c.id === selectedConv)?.customerId ? "justify-end" : "justify-start"}`}>
+                    <div className={`max-w-[70%] rounded-xl px-3 py-2 ${m.senderId === conversations.find(c => c.id === selectedConv)?.customerId ? "bg-[#ffd700]/20 text-white" : "bg-white/5 text-[#cccccc]"}`}>
+                      <p className="text-xs">{m.body}</p>
+                      <p className="text-[9px] text-muted-foreground mt-1">{new Date(m.createdAt).toLocaleTimeString()}</p>
+                    </div>
+                  </div>
+                ))}
+                {messages.length === 0 && <p className="text-center text-muted-foreground text-sm py-8">No messages yet</p>}
+              </div>
+              <div className="p-3 border-t border-white/5 flex gap-2">
+                <input
+                  type="text"
+                  value={reply}
+                  onChange={(e) => setReply(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && sendReply()}
+                  placeholder="Type your reply..."
+                  className="flex-1 h-9 px-3 rounded-lg bg-white/5 border border-white/10 text-sm"
+                />
+                <Button size="sm" onClick={sendReply} disabled={sending || !reply.trim()} className="bx-blue-gradient text-black border-0">
+                  {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                </Button>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center">
+                <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground mb-3" />
+                <p className="text-sm text-muted-foreground">Select a conversation to view messages</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Security section (audit logs + login history) ─────────────
+function SecuritySection({ apiFetch }: { apiFetch: any }) {
+  const [tab, setTab] = useState<"audit" | "logins">("audit");
+  const [auditLogs, setAuditLogs] = useState<any[]>([]);
+  const [loginLogs, setLoginLogs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const [aRes, lRes] = await Promise.all([
+          apiFetch("/api/admin/audit-logs"),
+          apiFetch("/api/admin/login-logs"),
+        ]);
+        const aData = await aRes.json();
+        const lData = await lRes.json();
+        if (aRes.ok) setAuditLogs(aData.logs || []);
+        if (lRes.ok) setLoginLogs(lData.logs || []);
+      } catch { /* noop */ }
+      setLoading(false);
+    })();
+  }, []);
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xl font-bold">Security & Audit</h2>
+
+      <div className="flex items-center gap-2">
+        <button onClick={() => setTab("audit")} className={`px-3 py-1.5 text-xs rounded-md ${tab === "audit" ? "bg-[#ffd700]/20 text-[#ffd700]" : "bg-white/5 text-muted-foreground"}`}>Audit Logs</button>
+        <button onClick={() => setTab("logins")} className={`px-3 py-1.5 text-xs rounded-md ${tab === "logins" ? "bg-[#ffd700]/20 text-[#ffd700]" : "bg-white/5 text-muted-foreground"}`}>Login History</button>
+      </div>
+
+      {loading ? (
+        <p className="text-muted-foreground">Loading...</p>
+      ) : tab === "audit" ? (
+        <div className="bx-glass rounded-xl overflow-hidden">
+          <div className="overflow-x-auto max-h-[60vh] overflow-y-auto">
+            <table className="w-full text-xs">
+              <thead className="sticky top-0 bg-[#1a1a1a]">
+                <tr className="border-b border-white/5 text-muted-foreground">
+                  <th className="text-left py-2 px-3">Admin</th>
+                  <th className="text-left py-2 px-3">Action</th>
+                  <th className="text-left py-2 px-3">Target</th>
+                  <th className="text-left py-2 px-3">IP</th>
+                  <th className="text-left py-2 px-3">Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {auditLogs.length === 0 ? (
+                  <tr><td colSpan={5} className="text-center py-8 text-muted-foreground">No audit logs</td></tr>
+                ) : auditLogs.map((l) => (
+                  <tr key={l.id} className="border-b border-white/5 hover:bg-white/5">
+                    <td className="py-2 px-3">
+                      <p className="font-medium">{l.admin?.name || "—"}</p>
+                      <p className="text-[9px] text-muted-foreground">{l.admin?.uid}</p>
+                    </td>
+                    <td className="py-2 px-3">
+                      <Badge variant="outline" className="text-[9px] border-[#ffd700]/30 text-[#ffd700]">{l.action}</Badge>
+                    </td>
+                    <td className="py-2 px-3 text-[10px] text-muted-foreground">{l.targetType || "—"}: {l.targetId?.slice(0, 8) || "—"}</td>
+                    <td className="py-2 px-3 text-[10px] text-muted-foreground">{l.ip}</td>
+                    <td className="py-2 px-3 text-[10px] text-muted-foreground">{new Date(l.createdAt).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : (
+        <div className="bx-glass rounded-xl overflow-hidden">
+          <div className="overflow-x-auto max-h-[60vh] overflow-y-auto">
+            <table className="w-full text-xs">
+              <thead className="sticky top-0 bg-[#1a1a1a]">
+                <tr className="border-b border-white/5 text-muted-foreground">
+                  <th className="text-left py-2 px-3">Email</th>
+                  <th className="text-center py-2 px-3">Success</th>
+                  <th className="text-left py-2 px-3">Reason</th>
+                  <th className="text-left py-2 px-3">IP</th>
+                  <th className="text-left py-2 px-3">Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {loginLogs.length === 0 ? (
+                  <tr><td colSpan={5} className="text-center py-8 text-muted-foreground">No login attempts</td></tr>
+                ) : loginLogs.map((l) => (
+                  <tr key={l.id} className="border-b border-white/5 hover:bg-white/5">
+                    <td className="py-2 px-3 font-medium">{l.email}</td>
+                    <td className="py-2 px-3 text-center">
+                      {l.success ? <span className="text-emerald-400">✓</span> : <span className="text-red-400">✗</span>}
+                    </td>
+                    <td className="py-2 px-3 text-[10px] text-muted-foreground">{l.reason || "—"}</td>
+                    <td className="py-2 px-3 text-[10px] text-muted-foreground">{l.ip}</td>
+                    <td className="py-2 px-3 text-[10px] text-muted-foreground">{new Date(l.createdAt).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
