@@ -62,15 +62,9 @@ export async function POST(req: NextRequest) {
           data: { balance: { increment: trade.amount + profit } },
         }),
       ] : []),
-      // Create/update transaction record
-      db.transaction.upsert({
-        where: { reference: trade.tradeId },
-        update: {
-          type: result === "WIN" ? "TRADE_PROFIT" : "TRADE_LOSE",
-          amount: result === "WIN" ? trade.amount + profit : trade.amount,
-          status: "APPROVED",
-        },
-        create: {
+      // Create transaction record (always create new — reference is not unique)
+      db.transaction.create({
+        data: {
           txId: generateTxId("TXN"),
           userId: trade.userId,
           type: result === "WIN" ? "TRADE_PROFIT" : "TRADE_LOSE",
