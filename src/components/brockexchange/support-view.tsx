@@ -208,7 +208,7 @@ export function SupportView() {
         >
           <div>
             <h1 className="text-2xl font-bold flex items-center gap-2">
-              <Headphones className="h-6 w-6 text-[#2196f3]" />
+              <Headphones className="h-6 w-6 text-[#ffd700]" />
               <span className="bx-text-gradient">Support</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
@@ -254,7 +254,7 @@ export function SupportView() {
           </div>
           <Badge
             variant="outline"
-            className="border-[#2196f3]/40 text-[#42a5f5] bg-[#2196f3]/10 shrink-0"
+            className="border-[#ffd700]/40 text-[#ffed4e] bg-[#ffd700]/10 shrink-0"
           >
             {agent?.online ? "Available" : "Away"}
           </Badge>
@@ -270,7 +270,7 @@ export function SupportView() {
           >
             <div className="px-4 py-3 border-b border-white/5 flex items-center justify-between">
               <div className="text-sm font-semibold flex items-center gap-2">
-                <MessageCircle className="h-4 w-4 text-[#2196f3]" />
+                <MessageCircle className="h-4 w-4 text-[#ffd700]" />
                 Conversations
               </div>
               <Badge variant="secondary" className="text-[10px]">
@@ -303,7 +303,7 @@ export function SupportView() {
                         setMobileShowChat(true);
                       }}
                       className={`w-full text-left px-4 py-3 border-b border-white/5 transition-colors ${
-                        isActive ? "bg-[#2196f3]/10" : "hover:bg-white/5"
+                        isActive ? "bg-[#ffd700]/10" : "hover:bg-white/5"
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2 mb-1">

@@ -11,12 +11,12 @@ export function Logo({ size = 40, className }: { size?: number; className?: stri
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={cn("drop-shadow-[0_0_12px_rgba(33,150,243,0.6)]", className)}
-      aria-label="Brock Exchange logo"
+      aria-label="NexTradePro logo"
     >
       <defs>
         <linearGradient id="bx-cube-blue" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#42a5f5" />
-          <stop offset="60%" stopColor="#2196f3" />
+          <stop offset="0%" stopColor="#ffed4e" />
+          <stop offset="60%" stopColor="#ffd700" />
           <stop offset="100%" stopColor="#0d47a1" />
         </linearGradient>
         <linearGradient id="bx-cube-silver" x1="0" y1="0" x2="1" y2="1">

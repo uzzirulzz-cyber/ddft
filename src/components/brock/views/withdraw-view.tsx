@@ -100,7 +100,7 @@ export function WithdrawView() {
             <Label className="text-xs">Amount (USDT)</Label>
             <Input type="number" min={1} max={user.balance} value={amount || ""} onChange={(e) => setAmount(Number(e.target.value))} className="bg-white/5 border-white/10 h-11" />
             <div className="flex items-center gap-2">
-              <button onClick={() => setAmount(Math.floor(user.balance))} className="text-xs text-[#42a5f5] hover:underline">Max</button>
+              <button onClick={() => setAmount(Math.floor(user.balance))} className="text-xs text-[#ffed4e] hover:underline">Max</button>
               <span className="text-xs text-muted-foreground">Available: {user.balance.toFixed(2)}</span>
             </div>
           </div>

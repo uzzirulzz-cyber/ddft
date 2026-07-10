@@ -46,9 +46,9 @@ const STEPS = [
 ];
 
 const RETURNS = [
-  { dur: "30s", pct: 20, color: "from-[#2196f3] to-[#0D47A1]" },
-  { dur: "60s", pct: 30, color: "from-[#42a5f5] to-[#1565C0]" },
-  { dur: "120s", pct: 50, color: "from-[#64b5f6] to-[#0D47A1]" },
+  { dur: "30s", pct: 20, color: "from-[#ffd700] to-[#f0c000]" },
+  { dur: "60s", pct: 30, color: "from-[#ffed4e] to-[#e6b800]" },
+  { dur: "120s", pct: 50, color: "from-[#64b5f6] to-[#f0c000]" },
 ];
 
 const HERO_STATS = [
@@ -81,14 +81,14 @@ export function HomeView() {
     <main className="flex-1 pt-16">
       {/* 1. Hero */}
       <section className="relative overflow-hidden bx-grid-bg border-b border-white/5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0D47A1]/20 via-transparent to-[#2196f3]/15" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#f0c000]/20 via-transparent to-[#ffd700]/15" />
         <motion.div
-          className="absolute top-20 -left-32 h-96 w-96 rounded-full bg-[#2196f3]/10 blur-3xl"
+          className="absolute top-20 -left-32 h-96 w-96 rounded-full bg-[#ffd700]/10 blur-3xl"
           animate={{ y: [0, 40, 0] }}
           transition={{ duration: 14, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-0 -right-20 h-80 w-80 rounded-full bg-[#42a5f5]/10 blur-3xl"
+          className="absolute bottom-0 -right-20 h-80 w-80 rounded-full bg-[#ffed4e]/10 blur-3xl"
           animate={{ y: [0, -30, 0] }}
           transition={{ duration: 12, repeat: Infinity }}
         />
@@ -106,7 +106,7 @@ export function HomeView() {
             <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight">
               The future of trading on
               <br />
-              <span className="bx-text-gradient">Brock Exchange</span>
+              <span className="bx-text-gradient">NexTradePro</span>
             </h1>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
               Trade binary options on 12+ top crypto assets with up to 50% returns in 120 seconds.
@@ -180,7 +180,7 @@ export function HomeView() {
             </motion.div>
 
             {/* Center glow */}
-            <div className="absolute inset-1/4 rounded-full bg-[#2196f3]/10 blur-3xl" />
+            <div className="absolute inset-1/4 rounded-full bg-[#ffd700]/10 blur-3xl" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="h-48 w-48 rounded-full bx-blue-gradient bx-glow flex items-center justify-center text-7xl text-white font-bold">
                 ₿
@@ -440,12 +440,12 @@ export function HomeView() {
               Start Trading Today
             </h2>
             <p className="mt-3 text-white/80 max-w-xl mx-auto">
-              Join 50,000+ traders earning on Brock Exchange. Get $10,000 demo balance on
+              Join 50,000+ traders earning on NexTradePro. Get $10,000 demo balance on
               registration.
             </p>
             <Button
               onClick={() => navigate("register")}
-              className="mt-6 bg-white text-[#0D47A1] hover:bg-white/90 h-12 px-8 text-base font-semibold"
+              className="mt-6 bg-white text-[#f0c000] hover:bg-white/90 h-12 px-8 text-base font-semibold"
             >
               Create Free Account <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

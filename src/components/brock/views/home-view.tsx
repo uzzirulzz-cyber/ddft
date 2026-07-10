@@ -80,7 +80,7 @@ function FloatingCoins() {
       {glyphs.map((g, i) => (
         <motion.span
           key={i}
-          className="absolute text-4xl md:text-6xl font-bold text-[#2196f3]/15"
+          className="absolute text-4xl md:text-6xl font-bold text-[#ffd700]/15"
           style={{ left: `${10 + i * 15}%`, top: `${20 + (i % 3) * 22}%` }}
           animate={{ y: [0, -24, 0], opacity: [0.15, 0.3, 0.15] }}
           transition={{ duration: 6 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.6 }}
@@ -104,7 +104,7 @@ function Hero() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-4xl mx-auto"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#2196f3]/30 bg-[#2196f3]/10 px-4 py-1.5 text-xs font-medium text-[#42a5f5] mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#ffd700]/30 bg-[#ffd700]/10 px-4 py-1.5 text-xs font-medium text-[#ffed4e] mb-6">
             <span className="h-2 w-2 rounded-full bg-[#00c853] bx-pulse-dot" />
             Live trading • 12+ assets • Up to 50% in 120s
           </div>
@@ -114,7 +114,7 @@ function Hero() {
             <span className="bx-text-gradient">Grow faster.</span>
           </h1>
           <p className="mt-6 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Brock Exchange is the next-generation crypto trading platform. Trade binary options on
+            NexTradePro is the next-generation crypto trading platform. Trade binary options on
             BTC, ETH, SOL and 9 more assets with industry-leading payouts and lightning-fast settlement.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -155,7 +155,7 @@ function Hero() {
 }
 
 const FEATURES = [
-  { icon: Zap, title: "Lightning execution", body: "Sub-second order matching. Trades settle in 30, 60 or 120 seconds.", color: "#2196f3" },
+  { icon: Zap, title: "Lightning execution", body: "Sub-second order matching. Trades settle in 30, 60 or 120 seconds.", color: "#ffd700" },
   { icon: ShieldCheck, title: "Bank-grade security", body: "256-bit SSL, cold-storage wallets, and 2FA across every account.", color: "#00c853" },
   { icon: Wallet, title: "Instant deposits", body: "Fund with card, bank, or crypto. Withdrawals processed 24/7.", color: "#f59e0b" },
   { icon: CandlestickChart, title: "Pro charting", body: "Bollinger Bands, moving averages, support/resistance built-in.", color: "#a855f7" },
@@ -191,7 +191,7 @@ function FeaturesGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="bx-glass rounded-xl p-5 hover:border-[#2196f3]/30 transition-colors"
+              className="bx-glass rounded-xl p-5 hover:border-[#ffd700]/30 transition-colors"
             >
               <div
                 className="h-11 w-11 rounded-lg flex items-center justify-center mb-4"
@@ -219,7 +219,7 @@ function MarketCard({ coin, onTrade }: { coin: Coin; onTrade: () => void }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
-      className="bx-glass rounded-xl p-4 hover:border-[#2196f3]/30 transition-colors"
+      className="bx-glass rounded-xl p-4 hover:border-[#ffd700]/30 transition-colors"
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
@@ -266,7 +266,7 @@ function MarketCard({ coin, onTrade }: { coin: Coin; onTrade: () => void }) {
         size="sm"
         variant="outline"
         onClick={onTrade}
-        className="w-full mt-2 border-white/10 hover:border-[#2196f3]/40 hover:bg-[#2196f3]/10 hover:text-white"
+        className="w-full mt-2 border-white/10 hover:border-[#ffd700]/40 hover:bg-[#ffd700]/10 hover:text-white"
       >
         Trade {coin.symbol} <ArrowRight className="ml-1 h-3 w-3" />
       </Button>
@@ -339,7 +339,7 @@ function HowItWorks() {
               transition={{ duration: 0.4, delay: i * 0.1 }}
               className="bx-glass rounded-2xl p-6 relative overflow-hidden"
             >
-              <div className="absolute -top-6 -right-6 text-8xl font-black text-[#2196f3]/10 select-none">{s.n}</div>
+              <div className="absolute -top-6 -right-6 text-8xl font-black text-[#ffd700]/10 select-none">{s.n}</div>
               <div className="relative">
                 <div className="h-12 w-12 rounded-xl bx-blue-gradient flex items-center justify-center mb-4 bx-glow">
                   <s.icon className="h-6 w-6 text-white" />
@@ -356,8 +356,8 @@ function HowItWorks() {
 }
 
 const RETURNS = [
-  { dur: "30s", pct: "20%", color: "#2196f3", desc: "Quick-fire trades for fast movers" },
-  { dur: "60s", pct: "30%", color: "#42a5f5", desc: "The sweet spot for most strategies" },
+  { dur: "30s", pct: "20%", color: "#ffd700", desc: "Quick-fire trades for fast movers" },
+  { dur: "60s", pct: "30%", color: "#ffed4e", desc: "The sweet spot for most strategies" },
   { dur: "120s", pct: "50%", color: "#0d47a1", desc: "Max payouts for the patient trader" },
 ];
 
@@ -372,7 +372,7 @@ function ReturnsShowcase() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-2xl mx-auto mb-12"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#2196f3]/30 bg-[#2196f3]/10 px-4 py-1 text-xs text-[#42a5f5] mb-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#ffd700]/30 bg-[#ffd700]/10 px-4 py-1 text-xs text-[#ffed4e] mb-4">
             <Trophy className="h-3.5 w-3.5" /> Industry-leading payouts
           </div>
           <h2 className="text-3xl md:text-4xl font-bold">
@@ -488,7 +488,7 @@ function PatternLockTeaser() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#2196f3]/30 bg-[#2196f3]/10 px-4 py-1 text-xs text-[#42a5f5] mb-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#ffd700]/30 bg-[#ffd700]/10 px-4 py-1 text-xs text-[#ffed4e] mb-4">
               <Lock className="h-3.5 w-3.5" /> Pro patterns
             </div>
             <h2 className="text-3xl md:text-4xl font-bold leading-tight">

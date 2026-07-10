@@ -101,7 +101,7 @@ export function WatchlistView() {
                       </ResponsiveContainer>
                     </div>
                   </div>
-                  <Button size="sm" variant="outline" onClick={() => navigate(user ? "trade" : "login")} className="w-full border-white/10 hover:border-[#2196f3]/40">
+                  <Button size="sm" variant="outline" onClick={() => navigate(user ? "trade" : "login")} className="w-full border-white/10 hover:border-[#ffd700]/40">
                     Trade {c.symbol} <ArrowRight className="ml-1 h-3 w-3" />
                   </Button>
                 </motion.div>

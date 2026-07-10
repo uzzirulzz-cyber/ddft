@@ -155,7 +155,7 @@ export function SupportChatWidget() {
                   <Headset className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-white">Brock Support</div>
+                  <div className="text-sm font-semibold text-white">NexTradePro Support</div>
                   <div className="text-[10px] text-white/80 flex items-center gap-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#00c853] bx-pulse-dot" /> Online • Replies in ~2m
                   </div>
@@ -167,7 +167,7 @@ export function SupportChatWidget() {
             {/* Body */}
             {!conversation ? (
               <div className="flex-1 p-5 flex flex-col justify-center">
-                <MessageCircle className="h-10 w-10 text-[#2196f3] mx-auto mb-3" />
+                <MessageCircle className="h-10 w-10 text-[#ffd700] mx-auto mb-3" />
                 <h3 className="text-sm font-semibold text-white text-center">How can we help?</h3>
                 <p className="text-xs text-muted-foreground text-center mt-1 mb-4">Start a conversation with our support team.</p>
                 <div className="space-y-2">

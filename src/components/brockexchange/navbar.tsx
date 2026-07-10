@@ -54,7 +54,7 @@ export function Navbar() {
                 key={item.view}
                 onClick={() => navigate(item.view)}
                 className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                  active ? "text-[#2196f3] bg-[#2196f3]/10" : "text-muted-foreground hover:text-foreground"
+                  active ? "text-[#ffd700] bg-[#ffd700]/10" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {item.label}
@@ -83,7 +83,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           {user ? (
             <>
-              <span className="hidden sm:block text-sm font-mono text-[#2196f3]">
+              <span className="hidden sm:block text-sm font-mono text-[#ffd700]">
                 ${user.balance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
               <button onClick={() => navigate("notifications")} className="relative p-1.5">
@@ -93,7 +93,7 @@ export function Navbar() {
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center gap-2 rounded-full hover:bg-white/5 p-1">
                     <Avatar className="h-8 w-8 border border-white/10">
-                      <AvatarFallback className="bg-[#2196f3]/20 text-[#2196f3] text-xs font-semibold">
+                      <AvatarFallback className="bg-[#ffd700]/20 text-[#ffd700] text-xs font-semibold">
                         {user.name.split(" ").map(n => n[0]).slice(0, 2).join("")}
                       </AvatarFallback>
                     </Avatar>
@@ -131,7 +131,7 @@ export function Navbar() {
               key={item.view}
               onClick={() => { navigate(item.view); setMobileOpen(false); }}
               className={`w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg ${
-                view === item.view ? "text-[#2196f3] bg-[#2196f3]/10" : "text-muted-foreground"
+                view === item.view ? "text-[#ffd700] bg-[#ffd700]/10" : "text-muted-foreground"
               }`}
             >
               <item.icon className="h-4 w-4" />

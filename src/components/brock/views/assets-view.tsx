@@ -31,7 +31,7 @@ export function AssetsView() {
         </div>
 
         <div className="bx-glass rounded-2xl p-5">
-          <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><Coins className="h-4 w-4 text-[#2196f3]" /> Holdings</h3>
+          <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><Coins className="h-4 w-4 text-[#ffd700]" /> Holdings</h3>
           <div className="overflow-x-auto bx-scroll">
             <table className="w-full text-sm">
               <thead className="text-left text-xs text-muted-foreground">

@@ -127,9 +127,9 @@ export function SubAgentDashboard() {
   };
 
   const stats = [
-    { icon: Users, label: "My Customers", value: customers.length, color: "from-[#2196f3] to-[#0D47A1]" },
+    { icon: Users, label: "My Customers", value: customers.length, color: "from-[#ffd700] to-[#f0c000]" },
     { icon: UserCheck, label: "Active Customers", value: activeCustomers.length, color: "from-[#10b981] to-[#047857]" },
-    { icon: Wallet, label: "Customer Balance", value: `$${totalBalance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, color: "from-[#42a5f5] to-[#1565C0]" },
+    { icon: Wallet, label: "Customer Balance", value: `$${totalBalance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, color: "from-[#ffed4e] to-[#e6b800]" },
     { icon: TrendingUp, label: "Customer Trades", value: totalTrades, color: "from-[#f59e0b] to-[#b45309]" },
   ];
 
@@ -140,7 +140,7 @@ export function SubAgentDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Logo size={36} />
-            <Badge variant="outline" className="border-[#42a5f5]/40 text-[#42a5f5] text-[10px]">
+            <Badge variant="outline" className="border-[#ffed4e]/40 text-[#ffed4e] text-[10px]">
               SUB-AGENT PORTAL
             </Badge>
           </div>
@@ -148,7 +148,7 @@ export function SubAgentDashboard() {
             <span className="text-muted-foreground">Welcome,</span>
             <span className="font-semibold text-white">{user.name}</span>
             <span className="text-muted-foreground">·</span>
-            <span className="text-[#42a5f5] font-mono">Code: {user.referralCode}</span>
+            <span className="text-[#ffed4e] font-mono">Code: {user.referralCode}</span>
           </div>
           <div className="flex items-center gap-2">
             <Button size="sm" variant="ghost" onClick={fetchData} className="text-muted-foreground">
@@ -189,7 +189,7 @@ export function SubAgentDashboard() {
           <Button
             onClick={copyCode}
             variant="outline"
-            className="border-[#2196f3]/30 bg-[#2196f3]/10 text-[#42a5f5] hover:bg-[#2196f3]/20"
+            className="border-[#ffd700]/30 bg-[#ffd700]/10 text-[#ffed4e] hover:bg-[#ffd700]/20"
           >
             {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
             {user.referralCode}
@@ -225,7 +225,7 @@ export function SubAgentDashboard() {
           <section className="bx-glass rounded-xl p-4 sm:p-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
               <h2 className="text-sm font-semibold flex items-center gap-2">
-                <Users className="h-4 w-4 text-[#42a5f5]" /> Customers
+                <Users className="h-4 w-4 text-[#ffed4e]" /> Customers
               </h2>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
@@ -318,7 +318,7 @@ export function SubAgentDashboard() {
           <div className="space-y-4">
             <section className="bx-glass rounded-xl p-4 sm:p-5">
               <h2 className="text-sm font-semibold flex items-center gap-2 mb-3">
-                <Activity className="h-4 w-4 text-[#42a5f5]" /> Recent Trades
+                <Activity className="h-4 w-4 text-[#ffed4e]" /> Recent Trades
               </h2>
               <div className="space-y-2 max-h-72 overflow-y-auto">
                 {trades.length === 0 ? (
@@ -370,7 +370,7 @@ export function SubAgentDashboard() {
               <div className="absolute inset-0 bx-blue-gradient opacity-10" />
               <div className="relative">
                 <h2 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                  <LayoutDashboard className="h-4 w-4 text-[#42a5f5]" /> Invitation Code
+                  <LayoutDashboard className="h-4 w-4 text-[#ffed4e]" /> Invitation Code
                 </h2>
                 <p className="text-xs text-muted-foreground mb-3">
                   Share this code with new customers to onboard them under your agency.

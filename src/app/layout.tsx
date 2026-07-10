@@ -10,11 +10,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Brock Exchange — TRADE • INVEST • GROW",
+  title: "NexTradePro — Trade • Invest • Grow",
   description:
-    "Brock Exchange — the next-generation crypto trading platform. Trade binary options on 12+ assets with up to 50% returns in 120 seconds.",
-  keywords: ["Brock Exchange", "crypto", "trading", "bitcoin", "ethereum", "binary options"],
-  authors: [{ name: "Brock Exchange" }],
+    "NexTradePro — the next-generation crypto trading platform. Trade binary options on 12+ assets with up to 50% returns in 120 seconds.",
+  keywords: ["NexTradePro", "crypto", "trading", "bitcoin", "ethereum", "binary options"],
+  authors: [{ name: "NexTradePro" }],
 };
 
 export default function RootLayout({

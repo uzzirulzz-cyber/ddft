@@ -104,7 +104,7 @@ export const useAuth = create<AuthState>()(
       },
     }),
     {
-      name: "brock-exchange-auth",
+      name: "nextradepro-auth",
       version: 1,
       partialize: (state) => ({ user: state.user, view: state.view }),
       // Migrate: drop stale localStorage from old versions

@@ -54,14 +54,14 @@ export function AdminLoginView() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-6 bx-grid-bg relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0d47a1]/25 via-transparent to-[#2196f3]/15" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0d47a1]/25 via-transparent to-[#ffd700]/15" />
       <motion.div
-        className="absolute top-1/4 left-1/4 h-72 w-72 rounded-full bg-[#2196f3]/15 blur-3xl"
+        className="absolute top-1/4 left-1/4 h-72 w-72 rounded-full bg-[#ffd700]/15 blur-3xl"
         animate={{ y: [0, 30, 0], x: [0, 20, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-[#42a5f5]/15 blur-3xl"
+        className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-[#ffed4e]/15 blur-3xl"
         animate={{ y: [0, -25, 0], x: [0, -15, 0] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -80,7 +80,7 @@ export function AdminLoginView() {
           >
             <Logo size={64} />
           </motion.div>
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#2196f3]/30 bg-[#2196f3]/10 px-3 py-1 text-[11px] text-[#42a5f5]">
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#ffd700]/30 bg-[#ffd700]/10 px-3 py-1 text-[11px] text-[#ffed4e]">
             <Shield className="h-3 w-3" /> Staff Portal • Authorized Access Only
           </div>
           <h1 className="mt-4 text-2xl font-bold">Staff Portal</h1>
@@ -167,7 +167,7 @@ export function AdminLoginView() {
         <div className="mt-6 text-center">
           <button
             onClick={() => navigate("login")}
-            className="text-xs text-muted-foreground hover:text-[#42a5f5]"
+            className="text-xs text-muted-foreground hover:text-[#ffed4e]"
           >
             ← Back to customer login
           </button>

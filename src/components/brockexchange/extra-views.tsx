@@ -273,7 +273,7 @@ export function WatchlistView() {
               {items.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="text-center py-12 text-muted-foreground">
-                    Your watchlist is empty. Add coins from <button onClick={() => navigate("markets")} className="text-[#42a5f5] underline">Markets</button>.
+                    Your watchlist is empty. Add coins from <button onClick={() => navigate("markets")} className="text-[#ffed4e] underline">Markets</button>.
                   </td>
                 </tr>
               ) : (
@@ -327,10 +327,10 @@ export function AssetsView() {
   });
 
   const cards = [
-    { icon: Wallet, label: "Total Assets", value: `$${balance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, color: "from-[#2196f3] to-[#0D47A1]" },
+    { icon: Wallet, label: "Total Assets", value: `$${balance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, color: "from-[#ffd700] to-[#f0c000]" },
     { icon: ArrowUpRight, label: "Available", value: `$${available.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, color: "from-[#10b981] to-[#047857]" },
     { icon: Snowflake, label: "Frozen", value: `$${frozen.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, color: "from-[#f59e0b] to-[#b45309]" },
-    { icon: PieChart, label: "Coin Holdings", value: String(holdings.length), color: "from-[#42a5f5] to-[#1565C0]" },
+    { icon: PieChart, label: "Coin Holdings", value: String(holdings.length), color: "from-[#ffed4e] to-[#e6b800]" },
   ];
 
   return (
@@ -455,7 +455,7 @@ export function DepositView() {
                   onClick={() => setMethod(m.id)}
                   className={`p-3 rounded-lg border text-left transition-colors ${
                     method === m.id
-                      ? "border-[#2196f3] bg-[#2196f3]/15"
+                      ? "border-[#ffd700] bg-[#ffd700]/15"
                       : "border-white/10 bg-white/5 hover:bg-white/10"
                   }`}
                 >
@@ -495,7 +495,7 @@ export function DepositView() {
           {user && (
             <div className="bx-glass-soft rounded-lg p-3 text-xs flex items-center justify-between">
               <span className="text-muted-foreground">Current Balance</span>
-              <span className="font-mono text-[#42a5f5]">
+              <span className="font-mono text-[#ffed4e]">
                 ${user.balance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
             </div>
@@ -580,7 +580,7 @@ export function WithdrawView() {
                   onClick={() => setMethod(m.id)}
                   className={`p-3 rounded-lg border text-left transition-colors ${
                     method === m.id
-                      ? "border-[#2196f3] bg-[#2196f3]/15"
+                      ? "border-[#ffd700] bg-[#ffd700]/15"
                       : "border-white/10 bg-white/5 hover:bg-white/10"
                   }`}
                 >
@@ -608,7 +608,7 @@ export function WithdrawView() {
                 <button
                   type="button"
                   onClick={() => setAmount(String(user.balance))}
-                  className="text-[10px] text-[#42a5f5]"
+                  className="text-[10px] text-[#ffed4e]"
                 >
                   Available: ${user.balance.toFixed(2)} · MAX
                 </button>
@@ -745,7 +745,7 @@ export function HistoryView() {
                           <td className="py-2 px-3 text-right font-mono hidden sm:table-cell">{formatPrice(t.entryPrice)}</td>
                           <td className="py-2 px-3 text-right font-mono hidden sm:table-cell">{t.exitPrice ? formatPrice(t.exitPrice) : "—"}</td>
                           <td className="py-2 px-3 text-center">
-                            <Badge variant="outline" className={`text-[10px] ${t.status === "ACTIVE" ? "border-[#42a5f5]/40 text-[#42a5f5]" : t.result === "WIN" ? "border-emerald-400/40 text-emerald-400" : "border-red-400/40 text-red-400"}`}>
+                            <Badge variant="outline" className={`text-[10px] ${t.status === "ACTIVE" ? "border-[#ffed4e]/40 text-[#ffed4e]" : t.result === "WIN" ? "border-emerald-400/40 text-emerald-400" : "border-red-400/40 text-red-400"}`}>
                               {t.status === "ACTIVE" ? "Active" : t.result}
                             </Badge>
                           </td>
@@ -770,8 +770,8 @@ export function HistoryView() {
                 ) : (
                   txns.map((n) => (
                     <div key={n.id} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/5">
-                      <div className="h-8 w-8 rounded-full bg-[#2196f3]/20 flex items-center justify-center shrink-0">
-                        <Info className="h-4 w-4 text-[#42a5f5]" />
+                      <div className="h-8 w-8 rounded-full bg-[#ffd700]/20 flex items-center justify-center shrink-0">
+                        <Info className="h-4 w-4 text-[#ffed4e]" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium">{n.title}</div>
@@ -829,15 +829,15 @@ export function ProfileView() {
           {/* Left card */}
           <div className="space-y-4">
             <div className="bx-glass rounded-xl p-5 text-center">
-              <Avatar className="h-20 w-20 mx-auto mb-3 border-2 border-[#2196f3]/40">
-                <AvatarFallback className="bg-[#2196f3]/20 text-[#42a5f5] text-xl font-bold">
+              <Avatar className="h-20 w-20 mx-auto mb-3 border-2 border-[#ffd700]/40">
+                <AvatarFallback className="bg-[#ffd700]/20 text-[#ffed4e] text-xl font-bold">
                   {user.name.split(" ").map((n) => n[0]).slice(0, 2).join("")}
                 </AvatarFallback>
               </Avatar>
               <h2 className="text-lg font-bold">{user.name}</h2>
               <p className="text-xs text-muted-foreground">{user.email}</p>
               <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
-                <Badge variant="outline" className="border-[#42a5f5]/40 text-[#42a5f5]">
+                <Badge variant="outline" className="border-[#ffed4e]/40 text-[#ffed4e]">
                   {user.role}
                 </Badge>
                 <Badge variant="outline" className="border-[#f59e0b]/40 text-[#f59e0b]">
@@ -855,7 +855,7 @@ export function ProfileView() {
               </div>
               <div className="mt-3 pt-3 border-t border-white/5">
                 <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Invitation Code</div>
-                <div className="font-mono text-sm text-[#42a5f5]">{user.invitationCode || "—"}</div>
+                <div className="font-mono text-sm text-[#ffed4e]">{user.invitationCode || "—"}</div>
               </div>
             </div>
           </div>
@@ -865,8 +865,8 @@ export function ProfileView() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {details.map((d) => (
                 <div key={d.label} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5">
-                  <div className="h-8 w-8 rounded-lg bg-[#2196f3]/15 flex items-center justify-center shrink-0">
-                    <d.icon className="h-4 w-4 text-[#42a5f5]" />
+                  <div className="h-8 w-8 rounded-lg bg-[#ffd700]/15 flex items-center justify-center shrink-0">
+                    <d.icon className="h-4 w-4 text-[#ffed4e]" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{d.label}</div>
@@ -929,7 +929,7 @@ export function NotificationsView() {
     if (type === "success") return <CheckCircle2 className="h-4 w-4 text-emerald-400" />;
     if (type === "warning") return <AlertTriangle className="h-4 w-4 text-[#f59e0b]" />;
     if (type === "error") return <XCircle className="h-4 w-4 text-red-400" />;
-    return <Info className="h-4 w-4 text-[#42a5f5]" />;
+    return <Info className="h-4 w-4 text-[#ffed4e]" />;
   };
 
   const unread = items.filter((n) => !n.read).length;
@@ -939,7 +939,7 @@ export function NotificationsView() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <Bell className="h-6 w-6 text-[#42a5f5]" />
+            <Bell className="h-6 w-6 text-[#ffed4e]" />
             <h1 className="text-2xl font-bold">
               <span className="bx-text-gradient">Notifications</span>
             </h1>
@@ -967,7 +967,7 @@ export function NotificationsView() {
                 key={n.id}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`bx-glass rounded-xl p-4 flex items-start gap-3 ${!n.read ? "border-l-2 border-l-[#2196f3]" : ""}`}
+                className={`bx-glass rounded-xl p-4 flex items-start gap-3 ${!n.read ? "border-l-2 border-l-[#ffd700]" : ""}`}
               >
                 <div className="h-9 w-9 rounded-full bg-white/5 flex items-center justify-center shrink-0">
                   {iconFor(n.type)}
@@ -975,7 +975,7 @@ export function NotificationsView() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
                     <div className="text-sm font-semibold text-white">{n.title}</div>
-                    {!n.read && <span className="h-1.5 w-1.5 rounded-full bg-[#2196f3] shrink-0" />}
+                    {!n.read && <span className="h-1.5 w-1.5 rounded-full bg-[#ffd700] shrink-0" />}
                   </div>
                   <div className="text-xs text-muted-foreground mt-0.5">{n.body}</div>
                   <div className="text-[10px] text-muted-foreground mt-1">
@@ -1058,7 +1058,7 @@ export function SettingsView() {
         {/* Profile editor */}
         <form onSubmit={saveProfile} className="bx-glass rounded-xl p-5 sm:p-6 space-y-4">
           <h2 className="text-sm font-semibold flex items-center gap-2">
-            <UserIcon className="h-4 w-4 text-[#42a5f5]" /> Profile
+            <UserIcon className="h-4 w-4 text-[#ffed4e]" /> Profile
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
@@ -1095,7 +1095,7 @@ export function SettingsView() {
         {/* Password change */}
         <form onSubmit={changePwd} className="bx-glass rounded-xl p-5 sm:p-6 space-y-4">
           <h2 className="text-sm font-semibold flex items-center gap-2">
-            <Lock className="h-4 w-4 text-[#42a5f5]" /> Change Password
+            <Lock className="h-4 w-4 text-[#ffed4e]" /> Change Password
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="space-y-1.5">
@@ -1119,7 +1119,7 @@ export function SettingsView() {
         {/* Session info */}
         <div className="bx-glass rounded-xl p-5 sm:p-6">
           <h2 className="text-sm font-semibold flex items-center gap-2 mb-3">
-            <Smartphone className="h-4 w-4 text-[#42a5f5]" /> Session
+            <Smartphone className="h-4 w-4 text-[#ffed4e]" /> Session
           </h2>
           <div className="space-y-2 text-xs">
             <div className="flex items-center justify-between">
@@ -1128,7 +1128,7 @@ export function SettingsView() {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Role</span>
-              <Badge variant="outline" className="border-[#42a5f5]/40 text-[#42a5f5] text-[10px]">{user.role}</Badge>
+              <Badge variant="outline" className="border-[#ffed4e]/40 text-[#ffed4e] text-[10px]">{user.role}</Badge>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Last Login</span>

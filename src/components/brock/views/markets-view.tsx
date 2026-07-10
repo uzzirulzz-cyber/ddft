@@ -72,7 +72,7 @@ function MarketCard({ c, i, tick, isWatched, onToggleWatch, onTrade }: {
           </ResponsiveContainer>
         </div>
       </div>
-      <Button size="sm" variant="outline" onClick={onTrade} className="w-full border-white/10 hover:border-[#2196f3]/40 hover:bg-[#2196f3]/10">
+      <Button size="sm" variant="outline" onClick={onTrade} className="w-full border-white/10 hover:border-[#ffd700]/40 hover:bg-[#ffd700]/10">
         Trade {c.symbol} <ArrowRight className="ml-1 h-3 w-3" />
       </Button>
     </motion.div>

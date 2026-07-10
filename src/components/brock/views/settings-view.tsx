@@ -82,7 +82,7 @@ export function SettingsView() {
               <Button onClick={savePwd} className="bx-blue-gradient bx-glow text-white border-0">Update password</Button>
               <div className="bx-glass-soft rounded-lg p-3 flex items-center justify-between mt-4">
                 <div className="flex items-center gap-2">
-                  <Smartphone className="h-4 w-4 text-[#2196f3]" />
+                  <Smartphone className="h-4 w-4 text-[#ffd700]" />
                   <div>
                     <div className="text-sm text-white">Two-factor authentication</div>
                     <div className="text-xs text-muted-foreground">Add an extra layer of security</div>

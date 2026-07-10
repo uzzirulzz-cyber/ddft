@@ -83,7 +83,7 @@ const NAV: { id: Section; label: string; icon: React.ElementType; group: string 
   { id: "settings", label: "Settings", icon: Settings, group: "System" },
 ];
 
-function StatCard({ icon: Icon, label, value, sub, color = "#2196f3" }: { icon: React.ElementType; label: string; value: string; sub?: string; color?: string }) {
+function StatCard({ icon: Icon, label, value, sub, color = "#ffd700" }: { icon: React.ElementType; label: string; value: string; sub?: string; color?: string }) {
   return (
     <div className="bx-glass rounded-xl p-4">
       <div className="flex items-center justify-between">
@@ -161,7 +161,7 @@ function Dashboard({ syncTick }: { syncTick: number }) {
         <StatCard icon={Activity} label="Active Trades" value={stats.activeTrades.toString()} sub={`${stats.settledTrades} settled`} color="#00c853" />
         <StatCard icon={TrendingUp} label="Total Trades" value={stats.totalTrades.toString()} color="#a855f7" />
         <StatCard icon={DollarSign} label="Revenue" value={`$${stats.revenue.toFixed(2)}`} sub="house profit" color="#f59e0b" />
-        <StatCard icon={Wallet} label="Custodial Balance" value={`$${stats.totalBalance.toFixed(2)}`} color="#2196f3" />
+        <StatCard icon={Wallet} label="Custodial Balance" value={`$${stats.totalBalance.toFixed(2)}`} color="#ffd700" />
         <StatCard icon={ArrowDownToLine} label="Total Deposits" value={`$${stats.totalDeposits.toFixed(2)}`} sub={`Today: $${stats.todayDeposits.toFixed(2)}`} color="#00c853" />
         <StatCard icon={ArrowUpFromLine} label="Total Withdrawals" value={`$${stats.totalWithdrawals.toFixed(2)}`} sub={`Today: $${stats.todayWithdrawals.toFixed(2)}`} color="#ff3b30" />
         <StatCard icon={Clock} label="Pending Approvals" value={stats.pendingApprovals.toString()} sub={`${stats.pendingDeposits}D / ${stats.pendingWithdrawals}W`} color="#f59e0b" />
@@ -174,15 +174,15 @@ function Dashboard({ syncTick }: { syncTick: number }) {
             <AreaChart data={revenueSeries}>
               <defs>
                 <linearGradient id="rev-grad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2196f3" stopOpacity={0.5} />
-                  <stop offset="100%" stopColor="#2196f3" stopOpacity={0} />
+                  <stop offset="0%" stopColor="#ffd700" stopOpacity={0.5} />
+                  <stop offset="100%" stopColor="#ffd700" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
               <XAxis dataKey="date" tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} />
               <RTooltip contentStyle={{ background: "#0a1322", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, color: "#fff", fontSize: 12 }} />
-              <Area type="monotone" dataKey="revenue" stroke="#2196f3" strokeWidth={2} fill="url(#rev-grad)" />
+              <Area type="monotone" dataKey="revenue" stroke="#ffd700" strokeWidth={2} fill="url(#rev-grad)" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -359,7 +359,7 @@ function UsersSection({ syncTick }: { syncTick: number }) {
                   <td className="px-4 py-3 text-white">{u.balance.toFixed(2)}</td>
                   <td className="px-4 py-3 text-muted-foreground">{u.tradesCount}</td>
                   <td className="px-4 py-3">
-                    <Badge variant="outline" className={u.status === "ACTIVE" ? "border-[#00c853]/40 text-[#00c853]" : u.status === "FROZEN" ? "border-[#42a5f5]/40 text-[#42a5f5]" : "border-[#ff3b30]/40 text-[#ff3b30]"}>
+                    <Badge variant="outline" className={u.status === "ACTIVE" ? "border-[#00c853]/40 text-[#00c853]" : u.status === "FROZEN" ? "border-[#ffed4e]/40 text-[#ffed4e]" : "border-[#ff3b30]/40 text-[#ff3b30]"}>
                       {u.status}
                     </Badge>
                   </td>
@@ -434,7 +434,7 @@ function UsersSection({ syncTick }: { syncTick: number }) {
 
             {/* Login history */}
             <div className="bx-glass-soft rounded-lg p-4 mt-4">
-              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#2196f3]" /> Login history</h4>
+              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#ffd700]" /> Login history</h4>
               {logins.length === 0 ? (
                 <p className="text-xs text-muted-foreground">No login attempts.</p>
               ) : (
@@ -497,7 +497,7 @@ function WalletSection() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatCard icon={ArrowDownToLine} label="Pending deposits" value={deposits.filter((d) => d.status === "PENDING").length.toString()} color="#00c853" />
         <StatCard icon={ArrowUpFromLine} label="Pending withdrawals" value={withdrawals.filter((w) => w.status === "PENDING").length.toString()} color="#ff3b30" />
-        <StatCard icon={CheckCircle2} label="Approved deposits" value={deposits.filter((d) => d.status === "APPROVED").length.toString()} color="#2196f3" />
+        <StatCard icon={CheckCircle2} label="Approved deposits" value={deposits.filter((d) => d.status === "APPROVED").length.toString()} color="#ffd700" />
         <StatCard icon={XCircle} label="Rejected" value={(deposits.filter((d) => d.status === "REJECTED").length + withdrawals.filter((w) => w.status === "REJECTED").length).toString()} color="#f59e0b" />
       </div>
 
@@ -747,7 +747,7 @@ function ReportsSection() {
     <div className="space-y-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatCard icon={DollarSign} label="MTD Revenue" value={`$${(data.reduce((a, d) => a + d.revenue, 0)).toFixed(0)}`} color="#00c853" />
-        <StatCard icon={ArrowDownToLine} label="MTD Deposits" value={`$${(data.reduce((a, d) => a + d.deposits, 0)).toFixed(0)}`} color="#2196f3" />
+        <StatCard icon={ArrowDownToLine} label="MTD Deposits" value={`$${(data.reduce((a, d) => a + d.deposits, 0)).toFixed(0)}`} color="#ffd700" />
         <StatCard icon={ArrowUpFromLine} label="MTD Withdrawals" value={`$${(data.reduce((a, d) => a + d.withdrawals, 0)).toFixed(0)}`} color="#ff3b30" />
         <StatCard icon={Activity} label="Active users" value="1,284" color="#a855f7" />
       </div>
@@ -774,7 +774,7 @@ function ReportsSection() {
               <XAxis dataKey="day" tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} />
               <RTooltip contentStyle={{ background: "#0a1322", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, fontSize: 12 }} />
-              <Line type="monotone" dataKey="deposits" stroke="#2196f3" strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="deposits" stroke="#ffd700" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -787,7 +787,7 @@ function SecuritySection() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div className="bx-glass rounded-xl p-5">
-        <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#2196f3]" /> Two-factor authentication</h3>
+        <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#ffd700]" /> Two-factor authentication</h3>
         <div className="flex items-center justify-between">
           <div>
             <div className="text-sm text-white">Require 2FA for all admins</div>
@@ -821,7 +821,7 @@ function SettingsSection() {
           <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
         </TabsList>
         <TabsContent value="general" className="mt-4 space-y-3">
-          <div><Label className="text-xs">Platform name</Label><Input defaultValue="Brock Exchange" className="bg-white/5 border-white/10" /></div>
+          <div><Label className="text-xs">Platform name</Label><Input defaultValue="NexTradePro" className="bg-white/5 border-white/10" /></div>
           <div><Label className="text-xs">Support email</Label><Input defaultValue="support@brock.exchange" className="bg-white/5 border-white/10" /></div>
         </TabsContent>
         <TabsContent value="trading" className="mt-4 space-y-3">
@@ -889,7 +889,7 @@ export function AdminView() {
                       key={n.id}
                       onClick={() => setSection(n.id)}
                       className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md text-sm transition ${
-                        active ? "bx-glass text-white border-l-2 border-[#2196f3] bg-[#2196f3]/10" : "text-muted-foreground hover:text-white hover:bg-white/5"
+                        active ? "bx-glass text-white border-l-2 border-[#ffd700] bg-[#ffd700]/10" : "text-muted-foreground hover:text-white hover:bg-white/5"
                       }`}
                     >
                       <n.icon className="h-4 w-4" />
@@ -915,10 +915,10 @@ export function AdminView() {
       <div className="flex-1 flex flex-col min-w-0">
         <header className="border-b border-white/5 bg-[#02060f]/60 backdrop-blur px-5 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <current.icon className="h-5 w-5 text-[#2196f3]" />
+            <current.icon className="h-5 w-5 text-[#ffd700]" />
             <div>
               <h1 className="text-base font-bold text-white">{current.label}</h1>
-              <p className="text-[10px] text-muted-foreground">Brock Exchange admin panel</p>
+              <p className="text-[10px] text-muted-foreground">NexTradePro admin panel</p>
             </div>
           </div>
           <div className="flex items-center gap-2">

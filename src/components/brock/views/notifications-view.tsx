@@ -81,13 +81,13 @@ export function NotificationsView() {
           <div className="space-y-2">
             {items.map((n) => {
               const Icon = ICONS[n.type] || Info;
-              const color = n.type === "success" ? "#00c853" : n.type === "warning" ? "#f59e0b" : n.type === "danger" ? "#ff3b30" : "#2196f3";
+              const color = n.type === "success" ? "#00c853" : n.type === "warning" ? "#f59e0b" : n.type === "danger" ? "#ff3b30" : "#ffd700";
               return (
                 <motion.div
                   key={n.id}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`bx-glass rounded-xl p-4 ${!n.read ? "border-l-2 border-l-[#2196f3]" : ""}`}
+                  className={`bx-glass rounded-xl p-4 ${!n.read ? "border-l-2 border-l-[#ffd700]" : ""}`}
                 >
                   <div className="flex items-start gap-3">
                     <div className="h-9 w-9 rounded-full flex items-center justify-center shrink-0" style={{ background: `${color}1a`, color }}>
@@ -96,7 +96,7 @@ export function NotificationsView() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <h4 className="text-sm font-semibold text-white">{n.title}</h4>
-                        {!n.read && <Badge variant="outline" className="border-[#2196f3]/40 text-[#2196f3] text-[10px]">NEW</Badge>}
+                        {!n.read && <Badge variant="outline" className="border-[#ffd700]/40 text-[#ffd700] text-[10px]">NEW</Badge>}
                       </div>
                       <p className="text-xs text-muted-foreground mt-1">{n.body}</p>
                       <div className="text-[10px] text-muted-foreground mt-2">{new Date(n.createdAt).toLocaleString()}</div>

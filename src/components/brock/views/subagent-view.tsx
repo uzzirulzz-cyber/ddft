@@ -50,7 +50,7 @@ type Trade = {
   user?: { name: string; email: string };
 };
 
-function StatCard({ icon: Icon, label, value, sub, color = "#2196f3" }: { icon: React.ElementType; label: string; value: string; sub?: string; color?: string }) {
+function StatCard({ icon: Icon, label, value, sub, color = "#ffd700" }: { icon: React.ElementType; label: string; value: string; sub?: string; color?: string }) {
   return (
     <div className="bx-glass rounded-xl p-4">
       <div className="flex items-center justify-between">
@@ -213,7 +213,7 @@ export function SubAgentDashboard() {
                         <td className="px-2 py-2 text-white">{c.balance.toFixed(2)}</td>
                         <td className="px-2 py-2 text-muted-foreground">{c.tradesCount}</td>
                         <td className="px-2 py-2">
-                          <Badge variant="outline" className={c.status === "ACTIVE" ? "border-[#00c853]/40 text-[#00c853]" : "border-[#42a5f5]/40 text-[#42a5f5]"}>
+                          <Badge variant="outline" className={c.status === "ACTIVE" ? "border-[#00c853]/40 text-[#00c853]" : "border-[#ffed4e]/40 text-[#ffed4e]"}>
                             {c.status}
                           </Badge>
                         </td>
@@ -237,7 +237,7 @@ export function SubAgentDashboard() {
 
           {/* Invitation share card */}
           <div className="bx-glass rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><Share2 className="h-4 w-4 text-[#2196f3]" /> Invitation Code</h3>
+            <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><Share2 className="h-4 w-4 text-[#ffd700]" /> Invitation Code</h3>
             <div className="bx-blue-gradient rounded-xl p-5 text-center bx-glow">
               <div className="text-xs text-white/80 uppercase tracking-wider">Your referral code</div>
               <div className="text-3xl font-black text-white mt-2 tracking-wider">{user.referralCode}</div>

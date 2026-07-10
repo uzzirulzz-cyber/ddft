@@ -108,7 +108,7 @@ export function AdminView() {
                 key={n.id}
                 onClick={() => setSection(n.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  active ? "bg-[#2196f3]/15 text-[#42a5f5] border border-[#2196f3]/30" : "text-muted-foreground hover:bg-white/5 hover:text-white border border-transparent"
+                  active ? "bg-[#ffd700]/15 text-[#ffed4e] border border-[#ffd700]/30" : "text-muted-foreground hover:bg-white/5 hover:text-white border border-transparent"
                 }`}
               >
                 <n.icon className="h-4 w-4" />
@@ -142,7 +142,7 @@ export function AdminView() {
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline-flex text-xs text-muted-foreground">Welcome,</span>
             <span className="text-sm font-semibold text-white">{user.name}</span>
-            <Badge variant="outline" className="border-[#42a5f5]/40 text-[#42a5f5] text-[10px]">SUPER ADMIN</Badge>
+            <Badge variant="outline" className="border-[#ffed4e]/40 text-[#ffed4e] text-[10px]">SUPER ADMIN</Badge>
           </div>
         </header>
 
@@ -154,7 +154,7 @@ export function AdminView() {
                 key={n.id}
                 onClick={() => setSection(n.id)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs whitespace-nowrap ${
-                  section === n.id ? "bg-[#2196f3]/15 text-[#42a5f5]" : "text-muted-foreground"
+                  section === n.id ? "bg-[#ffd700]/15 text-[#ffed4e]" : "text-muted-foreground"
                 }`}
               >
                 <n.icon className="h-3.5 w-3.5" />
@@ -227,15 +227,15 @@ function DashboardSection({ apiFetch }: { apiFetch: any }) {
 
   const cards: { label: string; value: string | number; icon: any; color: string }[] = stats
     ? [
-        { label: "Total Users", value: stats.totalUsers, icon: Users, color: "from-[#2196f3] to-[#0D47A1]" },
+        { label: "Total Users", value: stats.totalUsers, icon: Users, color: "from-[#ffd700] to-[#f0c000]" },
         { label: "Active Users", value: stats.activeUsers, icon: Activity, color: "from-[#10b981] to-[#047857]" },
-        { label: "Total Agents", value: stats.totalAgents, icon: ShieldCheck, color: "from-[#42a5f5] to-[#1565C0]" },
+        { label: "Total Agents", value: stats.totalAgents, icon: ShieldCheck, color: "from-[#ffed4e] to-[#e6b800]" },
         { label: "Total Trades", value: stats.totalTrades, icon: TrendingUp, color: "from-[#f59e0b] to-[#b45309]" },
-        { label: "Active Trades", value: stats.activeTrades, icon: Activity, color: "from-[#2196f3] to-[#0D47A1]" },
+        { label: "Active Trades", value: stats.activeTrades, icon: Activity, color: "from-[#ffd700] to-[#f0c000]" },
         { label: "Revenue", value: `$${stats.revenue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, icon: Wallet, color: "from-[#10b981] to-[#047857]" },
-        { label: "Total Deposits", value: `$${stats.totalDeposits.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, icon: CreditCard, color: "from-[#42a5f5] to-[#1565C0]" },
+        { label: "Total Deposits", value: `$${stats.totalDeposits.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, icon: CreditCard, color: "from-[#ffed4e] to-[#e6b800]" },
         { label: "Total Withdrawals", value: `$${stats.totalWithdrawals.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, icon: CreditCard, color: "from-[#ef4444] to-[#991b1b]" },
-        { label: "Today's Deposits", value: `$${stats.todayDeposits.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, icon: CreditCard, color: "from-[#42a5f5] to-[#1565C0]" },
+        { label: "Today's Deposits", value: `$${stats.todayDeposits.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, icon: CreditCard, color: "from-[#ffed4e] to-[#e6b800]" },
         { label: "Today's Withdrawals", value: `$${stats.todayWithdrawals.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, icon: CreditCard, color: "from-[#ef4444] to-[#991b1b]" },
         { label: "Winning Trades", value: stats.winningTrades, icon: Trophy, color: "from-[#10b981] to-[#047857]" },
         { label: "Losing Trades", value: stats.losingTrades, icon: XCircle, color: "from-[#ef4444] to-[#991b1b]" },
@@ -284,8 +284,8 @@ function DashboardSection({ apiFetch }: { apiFetch: any }) {
               <AreaChart data={series}>
                 <defs>
                   <linearGradient id="admin-rev" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#2196f3" stopOpacity={0.5} />
-                    <stop offset="100%" stopColor="#2196f3" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#ffd700" stopOpacity={0.5} />
+                    <stop offset="100%" stopColor="#ffd700" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
@@ -295,7 +295,7 @@ function DashboardSection({ apiFetch }: { apiFetch: any }) {
                   contentStyle={{ background: "#0a1322", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, fontSize: 12 }}
                   formatter={(v: any) => [`$${Number(v).toFixed(2)}`, "Revenue"]}
                 />
-                <Area type="monotone" dataKey="revenue" stroke="#2196f3" strokeWidth={2} fill="url(#admin-rev)" />
+                <Area type="monotone" dataKey="revenue" stroke="#ffd700" strokeWidth={2} fill="url(#admin-rev)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -310,7 +310,7 @@ function DashboardSection({ apiFetch }: { apiFetch: any }) {
               coinVol.map((c) => (
                 <div key={c.symbol} className="flex items-center justify-between p-2 rounded-lg bg-white/5 text-xs">
                   <span className="font-semibold">{c.symbol}</span>
-                  <Badge variant="outline" className="text-[10px] border-[#42a5f5]/40 text-[#42a5f5]">
+                  <Badge variant="outline" className="text-[10px] border-[#ffed4e]/40 text-[#ffed4e]">
                     {c.count} trades
                   </Badge>
                 </div>
@@ -463,7 +463,7 @@ function UsersSection({ apiFetch }: { apiFetch: any }) {
                     </td>
                     <td className="py-2 px-3 font-mono text-[10px] hidden sm:table-cell">{u.uid}</td>
                     <td className="py-2 px-3">
-                      <Badge variant="outline" className="text-[10px] border-[#42a5f5]/40 text-[#42a5f5]">{u.role}</Badge>
+                      <Badge variant="outline" className="text-[10px] border-[#ffed4e]/40 text-[#ffed4e]">{u.role}</Badge>
                     </td>
                     <td className="py-2 px-3 text-right font-mono">${u.balance.toFixed(2)}</td>
                     <td className="py-2 px-3 text-right hidden sm:table-cell">{u._count?.trades || 0}</td>
@@ -629,7 +629,7 @@ function TradesSection({ apiFetch }: { apiFetch: any }) {
             key={f}
             onClick={() => setFilter(f)}
             className={`px-3 py-1 text-xs rounded-md transition-colors ${
-              filter === f ? "bg-[#2196f3]/20 text-[#2196f3]" : "bg-white/5 text-muted-foreground hover:text-foreground"
+              filter === f ? "bg-[#ffd700]/20 text-[#ffd700]" : "bg-white/5 text-muted-foreground hover:text-foreground"
             }`}
           >
             {f === "ALL" ? "All Trades" : f}
@@ -644,7 +644,7 @@ function TradesSection({ apiFetch }: { apiFetch: any }) {
       <div className="grid grid-cols-3 gap-3">
         <div className="bx-glass rounded-xl p-3 text-center">
           <p className="text-[10px] text-muted-foreground uppercase">Total</p>
-          <p className="text-xl font-bold text-[#2196f3]">{trades.length}</p>
+          <p className="text-xl font-bold text-[#ffd700]">{trades.length}</p>
         </div>
         <div className="bx-glass rounded-xl p-3 text-center">
           <p className="text-[10px] text-muted-foreground uppercase">Wins</p>
@@ -693,7 +693,7 @@ function TradesSection({ apiFetch }: { apiFetch: any }) {
                     </td>
                     <td className="py-2 px-3 text-right font-mono">${t.amount.toFixed(2)}</td>
                     <td className="py-2 px-3 text-center">
-                      <Badge variant="outline" className={`text-[10px] ${t.status === "ACTIVE" ? "border-[#42a5f5]/40 text-[#42a5f5]" : t.result === "WIN" ? "border-emerald-400/40 text-emerald-400" : "border-red-400/40 text-red-400"}`}>
+                      <Badge variant="outline" className={`text-[10px] ${t.status === "ACTIVE" ? "border-[#ffed4e]/40 text-[#ffed4e]" : t.result === "WIN" ? "border-emerald-400/40 text-emerald-400" : "border-red-400/40 text-red-400"}`}>
                         {t.status === "ACTIVE" ? "Active" : t.result}
                       </Badge>
                     </td>
@@ -733,9 +733,9 @@ function TradesSection({ apiFetch }: { apiFetch: any }) {
       </div>
 
       {/* Info banner */}
-      <div className="bx-glass rounded-xl p-4 border-l-2 border-[#2196f3]">
+      <div className="bx-glass rounded-xl p-4 border-l-2 border-[#ffd700]">
         <p className="text-xs text-muted-foreground">
-          <strong className="text-[#2196f3]">Admin Control:</strong> Use "SET WIN" or "SET LOSE" buttons to manually settle any trade.
+          <strong className="text-[#ffd700]">Admin Control:</strong> Use "SET WIN" or "SET LOSE" buttons to manually settle any trade.
           This overrides the automatic settlement. The user's wallet balance will be updated immediately and they will receive a notification.
           If the trade was already settled, the previous result will be reversed before applying the new one.
         </p>
@@ -984,7 +984,7 @@ function ReportsSection({ apiFetch }: { apiFetch: any }) {
                 <XAxis dataKey="day" stroke="#8896b3" fontSize={11} />
                 <YAxis stroke="#8896b3" fontSize={11} />
                 <RechartsTooltip contentStyle={{ background: "#0a1322", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, fontSize: 12 }} />
-                <Line type="monotone" dataKey="users" stroke="#2196f3" strokeWidth={2} dot={{ fill: "#2196f3", r: 3 }} />
+                <Line type="monotone" dataKey="users" stroke="#ffd700" strokeWidth={2} dot={{ fill: "#ffd700", r: 3 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -1015,7 +1015,7 @@ function ReportsSection({ apiFetch }: { apiFetch: any }) {
                 <XAxis dataKey="day" stroke="#8896b3" fontSize={11} />
                 <YAxis stroke="#8896b3" fontSize={11} />
                 <RechartsTooltip contentStyle={{ background: "#0a1322", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, fontSize: 12 }} />
-                <Bar dataKey="volume" fill="#2196f3" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="volume" fill="#ffd700" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -1043,7 +1043,7 @@ function SettingsSection() {
         className="bx-glass rounded-xl p-5 sm:p-6 space-y-4"
       >
         <h2 className="text-sm font-semibold flex items-center gap-2">
-          <Settings className="h-4 w-4 text-[#42a5f5]" /> Platform Settings
+          <Settings className="h-4 w-4 text-[#ffed4e]" /> Platform Settings
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="space-y-1.5">

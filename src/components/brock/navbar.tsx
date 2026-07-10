@@ -131,7 +131,7 @@ export function Navbar() {
             <>
               {user.role === "CUSTOMER" && (
                 <div className="hidden md:flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-sm">
-                  <Wallet className="h-3.5 w-3.5 text-[#2196f3]" />
+                  <Wallet className="h-3.5 w-3.5 text-[#ffd700]" />
                   <span className="font-semibold text-white">{user.balance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                   <span className="text-muted-foreground text-xs">USDT</span>
                 </div>
@@ -142,7 +142,7 @@ export function Navbar() {
                 aria-label="Notifications"
               >
                 <Bell className="h-4.5 w-4.5 text-muted-foreground hover:text-white" />
-                <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#2196f3] bx-pulse-dot" />
+                <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#ffd700] bx-pulse-dot" />
               </button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -159,7 +159,7 @@ export function Navbar() {
                     <div className="flex flex-col gap-0.5">
                       <span className="text-white text-sm font-medium truncate">{user.name}</span>
                       <span className="text-[11px]">{user.email}</span>
-                      <span className="text-[10px] uppercase tracking-wider mt-1 text-[#2196f3]">{user.role.replace("_", " ")}</span>
+                      <span className="text-[10px] uppercase tracking-wider mt-1 text-[#ffd700]">{user.role.replace("_", " ")}</span>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/5" />

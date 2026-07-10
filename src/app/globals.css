@@ -44,39 +44,39 @@
 }
 
 :root {
-  /* Brock Exchange — dark blue glassmorphism theme */
+  /* NexTradePro — dark + gold theme (per BINIX design reference) */
   --radius: 0.75rem;
-  --background: #050810;
-  --foreground: #f8fafc;
-  --card: rgba(13, 20, 38, 0.6);
-  --card-foreground: #f8fafc;
-  --popover: #0d1426;
-  --popover-foreground: #f8fafc;
-  --primary: #2196f3;
-  --primary-foreground: #ffffff;
-  --secondary: #1a2540;
-  --secondary-foreground: #f8fafc;
-  --muted: #1a2540;
-  --muted-foreground: #8896b3;
-  --accent: #2196f3;
+  --background: #0d0d0d;
+  --foreground: #ffffff;
+  --card: rgba(30, 30, 30, 0.6);
+  --card-foreground: #ffffff;
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
+  --primary: #ffd700;
+  --primary-foreground: #0d0d0d;
+  --secondary: #252525;
+  --secondary-foreground: #ffffff;
+  --muted: #1e1e1e;
+  --muted-foreground: #999999;
+  --accent: #333333;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.06);
   --input: rgba(255, 255, 255, 0.08);
-  --ring: #2196f3;
-  --chart-1: #2196f3;
-  --chart-2: #10b981;
+  --ring: #ffd700;
+  --chart-1: #ffd700;
+  --chart-2: #00d68f;
   --chart-3: #ef4444;
-  --chart-4: #f59e0b;
-  --chart-5: #8b5cf6;
-  --sidebar: #080d1a;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #2196f3;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1a2540;
-  --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: #2196f3;
+  --chart-4: #ffd700;
+  --chart-5: #9c27b0;
+  --sidebar: #0a0a0a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ffd700;
+  --sidebar-primary-foreground: #0d0d0d;
+  --sidebar-accent: #1e1e1e;
+  --sidebar-accent-foreground: #ffd700;
+  --sidebar-border: rgba(255, 255, 255, 0.05);
+  --sidebar-ring: #ffd700;
 }
 
 @layer base {
@@ -85,56 +85,61 @@
   }
   body {
     @apply text-foreground;
-    background: #050810;
+    background: #0d0d0d;
     font-feature-settings: "tnum" 1;
     min-height: 100vh;
   }
 }
 
-/* ─── Brock Exchange utility classes ────────────────────────── */
+/* ─── NexTradePro utility classes ───────────────────────────── */
 
-/* Glassmorphism card */
+/* Glassmorphism card — dark with subtle gold border on hover */
 .bx-glass {
-  background: rgba(13, 20, 38, 0.6);
+  background: rgba(30, 30, 30, 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.bx-glass:hover {
+  border-color: rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.08);
 }
 .bx-glass-soft {
-  background: rgba(13, 20, 38, 0.35);
+  background: rgba(30, 30, 30, 0.35);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 1rem;
 }
 
-/* Neon glow */
+/* Neon glow — gold */
 .bx-glow {
-  box-shadow: 0 0 30px rgba(33, 150, 243, 0.3);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.25);
 }
 .bx-glow-sm {
-  box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
 }
 
-/* Gradient text */
+/* Gradient text — gold */
 .bx-text-gradient {
-  background: linear-gradient(135deg, #2196f3, #42a5f5, #64b5f6);
+  background: linear-gradient(135deg, #ffd700, #ffed4e, #f0c000);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
 
-/* Blue gradient bg */
+/* Gold gradient bg */
 .bx-blue-gradient {
-  background: linear-gradient(135deg, #0D47A1, #1565C0, #2196f3);
+  background: linear-gradient(135deg, #f0c000, #ffd700, #ffed4e);
 }
 
 /* Grid background */
 .bx-grid-bg {
-  background-image: linear-gradient(rgba(33, 150, 243, 0.03) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(33, 150, 243, 0.03) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(255, 215, 0, 0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 215, 0, 0.02) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
@@ -166,7 +171,7 @@
   animation: bx-fade-in 0.4s ease-out;
 }
 
-/* Scrollbar */
+/* Scrollbar — gold */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -175,14 +180,20 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(33, 150, 243, 0.3);
+  background: rgba(255, 215, 0, 0.25);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(33, 150, 243, 0.5);
+  background: rgba(255, 215, 0, 0.4);
 }
 
-/* Silver accent */
+/* Silver accent (kept for compatibility) */
 .bx-silver {
-  color: #E0E0E0;
+  color: #cccccc;
+}
+
+/* Active nav item */
+.nav-active-gold {
+  background: rgba(255, 215, 0, 0.12);
+  color: #ffd700;
 }

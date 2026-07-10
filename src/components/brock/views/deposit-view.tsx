@@ -76,8 +76,8 @@ export function DepositView() {
 
             <TabsContent value="BANK" className="mt-5">
               <div className="bx-glass-soft rounded-lg p-4 text-sm space-y-2">
-                <div className="flex justify-between"><span className="text-muted-foreground">Bank</span><span className="text-white">Brock Bank International</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">Account name</span><span className="text-white">Brock Exchange Ltd</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Bank</span><span className="text-white">NexTradePro Bank International</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Account name</span><span className="text-white">NexTradePro Ltd</span></div>
                 <div className="flex justify-between"><span className="text-muted-foreground">Account #</span><span className="text-white font-mono">0023-8841-2299</span></div>
                 <div className="flex justify-between"><span className="text-muted-foreground">SWIFT</span><span className="text-white font-mono">BRCKUS33</span></div>
                 <div className="flex justify-between"><span className="text-muted-foreground">Reference</span><span className="text-white font-mono">{user.uid}</span></div>
@@ -112,7 +112,7 @@ export function DepositView() {
             <Input type="number" min={1} value={amount || ""} onChange={(e) => setAmount(Number(e.target.value))} className="bg-white/5 border-white/10 h-11" />
             <div className="grid grid-cols-6 gap-1.5">
               {[50, 100, 250, 500, 1000, 5000].map((a) => (
-                <button key={a} onClick={() => setAmount(a)} className={`h-7 rounded text-[10px] border ${amount === a ? "border-[#2196f3] text-white bg-[#2196f3]/15" : "border-white/10 text-muted-foreground hover:text-white"}`}>{a}</button>
+                <button key={a} onClick={() => setAmount(a)} className={`h-7 rounded text-[10px] border ${amount === a ? "border-[#ffd700] text-white bg-[#ffd700]/15" : "border-white/10 text-muted-foreground hover:text-white"}`}>{a}</button>
               ))}
             </div>
           </div>

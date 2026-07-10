@@ -129,7 +129,7 @@ export function AuthView() {
       }
       const u = data.user as AuthUser;
       setUser(u);
-      toast.success(`Welcome to Brock Exchange, ${u.name}!`);
+      toast.success(`Welcome to NexTradePro, ${u.name}!`);
       navigate("trade");
     } catch {
       toast.error("Network error. Try again.");
@@ -149,15 +149,15 @@ export function AuthView() {
     <main className="flex-1 pt-16 bx-fade-in min-h-[calc(100vh-4rem)] grid lg:grid-cols-[45%_55%]">
       {/* Left brand panel */}
       <section className="hidden lg:flex relative overflow-hidden bx-grid-bg border-r border-white/5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d47a1]/30 via-transparent to-[#2196f3]/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d47a1]/30 via-transparent to-[#ffd700]/20" />
         {/* Floating glow circles */}
         <motion.div
-          className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-[#2196f3]/15 blur-3xl"
+          className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-[#ffd700]/15 blur-3xl"
           animate={{ y: [0, 30, 0], x: [0, 20, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-10 right-10 h-60 w-60 rounded-full bg-[#42a5f5]/15 blur-3xl"
+          className="absolute bottom-10 right-10 h-60 w-60 rounded-full bg-[#ffed4e]/15 blur-3xl"
           animate={{ y: [0, -25, 0], x: [0, -15, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -211,7 +211,7 @@ export function AuthView() {
               </div>
             </div>
             <p className="mt-2 text-sm text-muted-foreground italic">
-              &quot;Brock Exchange pays out faster than any platform I&apos;ve used. The 120s trades are
+              &quot;NexTradePro pays out faster than any platform I&apos;ve used. The 120s trades are
               addictive.&quot;
             </p>
           </div>
@@ -239,9 +239,9 @@ export function AuthView() {
               </p>
             </div>
 
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#2196f3]/30 bg-[#2196f3]/10 px-3 py-1 text-[11px] text-[#42a5f5] mb-5 w-full justify-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#ffd700]/30 bg-[#ffd700]/10 px-3 py-1 text-[11px] text-[#ffed4e] mb-5 w-full justify-center">
               <Shield className="h-3 w-3" />
-              Secured by Brock Exchange • 256-bit encryption
+              Secured by NexTradePro • 256-bit encryption
             </div>
 
             <Tabs value={mode} onValueChange={(v) => setMode(v as "login" | "register")}>
@@ -331,7 +331,7 @@ export function AuthView() {
                   No account?{" "}
                   <button
                     onClick={() => setMode("register")}
-                    className="text-[#42a5f5] hover:underline font-medium"
+                    className="text-[#ffed4e] hover:underline font-medium"
                   >
                     Register <ChevronRight className="inline h-3 w-3" />
                   </button>
@@ -452,11 +452,11 @@ export function AuthView() {
                     <Checkbox checked={terms} onCheckedChange={(v) => setTerms(!!v)} className="mt-0.5" />
                     <span className="text-xs text-muted-foreground leading-relaxed">
                       I agree to the{" "}
-                      <a href="#" onClick={(e) => e.preventDefault()} className="text-[#42a5f5]">
+                      <a href="#" onClick={(e) => e.preventDefault()} className="text-[#ffed4e]">
                         Terms of Service
                       </a>
                       ,{" "}
-                      <a href="#" onClick={(e) => e.preventDefault()} className="text-[#42a5f5]">
+                      <a href="#" onClick={(e) => e.preventDefault()} className="text-[#ffed4e]">
                         Privacy Policy
                       </a>
                       , and AML/KYC requirements.
@@ -475,7 +475,7 @@ export function AuthView() {
                   Already have an account?{" "}
                   <button
                     onClick={() => setMode("login")}
-                    className="text-[#42a5f5] hover:underline font-medium"
+                    className="text-[#ffed4e] hover:underline font-medium"
                   >
                     Login
                   </button>

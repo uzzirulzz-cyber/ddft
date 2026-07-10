@@ -29,7 +29,7 @@ export function ProfileView() {
             <h2 className="mt-3 text-lg font-bold text-white">{user.name}</h2>
             <p className="text-xs text-muted-foreground">{user.email}</p>
             <div className="mt-3 flex items-center justify-center gap-1.5">
-              <Badge variant="outline" className="border-[#2196f3]/40 text-[#2196f3]">VIP {user.vipLevel}</Badge>
+              <Badge variant="outline" className="border-[#ffd700]/40 text-[#ffd700]">VIP {user.vipLevel}</Badge>
               <Badge variant="outline" className="border-[#00c853]/40 text-[#00c853]">
                 <BadgeCheck className="h-3 w-3 mr-1" /> Verified
               </Badge>
@@ -98,7 +98,7 @@ export function ProfileView() {
             </div>
 
             <div className="bx-glass rounded-2xl p-5">
-              <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><Shield className="h-4 w-4 text-[#2196f3]" /> KYC verification</h3>
+              <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><Shield className="h-4 w-4 text-[#ffd700]" /> KYC verification</h3>
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm text-white">Identity verification</div>

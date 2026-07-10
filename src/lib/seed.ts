@@ -1,4 +1,4 @@
-// Brock Exchange — Seed script
+// NexTradePro — Seed script
 // Embeds default accounts directly (no env dependency).
 // Run with: bun run src/lib/seed.ts
 
@@ -26,7 +26,7 @@ function generateUid(): string {
 }
 
 async function seed() {
-  console.log("🌱 Seeding Brock Exchange...\n");
+  console.log("🌱 Seeding NexTradePro...\n");
 
   // Super Admin
   const existingSuper = await db.user.findUnique({ where: { email: SUPER_ADMIN.email } });

@@ -59,7 +59,7 @@ export function AdminLoginView() {
           <Logo size={80} />
         </div>
       </div>
-      <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-[#2196f3]/15 blur-3xl" />
+      <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-[#ffd700]/15 blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-[#0d47a1]/20 blur-3xl" />
 
       <motion.div
@@ -78,7 +78,7 @@ export function AdminLoginView() {
             <div className="text-[10px] tracking-[0.35em] text-muted-foreground mt-1">STAFF PORTAL</div>
           </div>
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#2196f3]/30 bg-[#2196f3]/10 px-3 py-1 text-[11px] text-[#42a5f5] mb-5 w-full justify-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#ffd700]/30 bg-[#ffd700]/10 px-3 py-1 text-[11px] text-[#ffed4e] mb-5 w-full justify-center">
             <Shield className="h-3 w-3" />
             Authorized personnel only • All actions logged
           </div>

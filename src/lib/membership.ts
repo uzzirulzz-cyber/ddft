@@ -1,4 +1,4 @@
-// Brock Exchange — Membership Levels
+// NexTradePro — Membership Levels
 // 5 tiers with increasing benefits. Stored as constants (not in DB)
 // so they're always available without a query.
 

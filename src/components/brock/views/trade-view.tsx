@@ -434,10 +434,10 @@ export function TradeView() {
                   <ComposedChart data={chartData} margin={{ top: 10, right: 8, bottom: 0, left: 0 }}>
                     <YAxis domain={[yMin, yMax]} orientation="right" width={70} hide />
                     <XAxis dataKey="time" hide />
-                    <Area dataKey="lower" stroke="none" fill="#2196f3" fillOpacity={0.05} isAnimationActive={false} />
-                    <Line dataKey="upper" stroke="#2196f3" strokeWidth={1} strokeDasharray="3 3" dot={false} isAnimationActive={false} />
-                    <Line dataKey="lower" stroke="#2196f3" strokeWidth={1} strokeDasharray="3 3" dot={false} isAnimationActive={false} />
-                    <Line dataKey="middle" stroke="#42a5f5" strokeWidth={1} strokeDasharray="1 2" dot={false} isAnimationActive={false} />
+                    <Area dataKey="lower" stroke="none" fill="#ffd700" fillOpacity={0.05} isAnimationActive={false} />
+                    <Line dataKey="upper" stroke="#ffd700" strokeWidth={1} strokeDasharray="3 3" dot={false} isAnimationActive={false} />
+                    <Line dataKey="lower" stroke="#ffd700" strokeWidth={1} strokeDasharray="3 3" dot={false} isAnimationActive={false} />
+                    <Line dataKey="middle" stroke="#ffed4e" strokeWidth={1} strokeDasharray="1 2" dot={false} isAnimationActive={false} />
                     <Line dataKey="ma" stroke="#f5a623" strokeWidth={1.2} dot={false} isAnimationActive={false} />
                     <ReferenceLine y={pattern.resistance} stroke="#ff3b30" strokeDasharray="4 4" strokeWidth={1} />
                     <ReferenceLine y={pattern.support} stroke="#00c853" strokeDasharray="4 4" strokeWidth={1} />
@@ -470,12 +470,12 @@ export function TradeView() {
 
             {/* Legend */}
             <div className="flex items-center gap-4 flex-wrap mt-3 text-[10px] text-muted-foreground">
-              <span className="inline-flex items-center gap-1"><span className="h-0.5 w-3 bg-[#2196f3]" /> Bollinger</span>
+              <span className="inline-flex items-center gap-1"><span className="h-0.5 w-3 bg-[#ffd700]" /> Bollinger</span>
               <span className="inline-flex items-center gap-1"><span className="h-0.5 w-3 bg-[#f5a623]" /> MA</span>
               <span className="inline-flex items-center gap-1"><span className="h-0.5 w-3 bg-[#ff3b30]" /> Resistance</span>
               <span className="inline-flex items-center gap-1"><span className="h-0.5 w-3 bg-[#00c853]" /> Support</span>
               {!authed && (
-                <span className="ml-auto text-[#42a5f5]">Pattern locked — login to reveal</span>
+                <span className="ml-auto text-[#ffed4e]">Pattern locked — login to reveal</span>
               )}
             </div>
           </div>
@@ -484,7 +484,7 @@ export function TradeView() {
           <div className="space-y-4">
             <div className="bx-glass rounded-2xl p-5">
               <h2 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-[#2196f3]" /> Place a trade
+                <TrendingUp className="h-4 w-4 text-[#ffd700]" /> Place a trade
               </h2>
 
               {/* Active trade banner */}
@@ -492,10 +492,10 @@ export function TradeView() {
                 <div className="bx-glass-soft rounded-lg p-3 mb-4">
                   <div className="flex items-center justify-between text-xs">
                     <span className="inline-flex items-center gap-1.5">
-                      <Clock className="h-3.5 w-3.5 text-[#42a5f5]" />
+                      <Clock className="h-3.5 w-3.5 text-[#ffed4e]" />
                       <span className="font-semibold text-white">Trade active</span>
                     </span>
-                    <span className="text-[#42a5f5] font-bold">{activeTrade.remaining}s</span>
+                    <span className="text-[#ffed4e] font-bold">{activeTrade.remaining}s</span>
                   </div>
                   <div className="mt-2 h-1.5 bg-white/5 rounded-full overflow-hidden">
                     <motion.div
@@ -584,7 +584,7 @@ export function TradeView() {
                       disabled={!authed || !!activeTrade}
                       className={`h-7 rounded text-[10px] font-medium border transition ${
                         amount === a
-                          ? "border-[#2196f3] text-white bg-[#2196f3]/15"
+                          ? "border-[#ffd700] text-white bg-[#ffd700]/15"
                           : "border-white/10 text-muted-foreground hover:text-white hover:bg-white/5"
                       } ${!authed || activeTrade ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
@@ -632,7 +632,7 @@ export function TradeView() {
             {/* Recent trades */}
             <div className="bx-glass rounded-2xl p-5">
               <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                <History className="h-4 w-4 text-[#2196f3]" /> Recent trades
+                <History className="h-4 w-4 text-[#ffd700]" /> Recent trades
               </h3>
               {!authed ? (
                 <div className="text-center py-8 text-xs text-muted-foreground">

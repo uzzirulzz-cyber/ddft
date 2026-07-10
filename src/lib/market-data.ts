@@ -1,4 +1,4 @@
-// Brock Exchange — Market data + pattern math (Bollinger Bands, MA, Support/Resistance)
+// NexTradePro — Market data + pattern math (Bollinger Bands, MA, Support/Resistance)
 
 export interface Coin {
   symbol: string;

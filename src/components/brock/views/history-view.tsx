@@ -78,7 +78,7 @@ export function HistoryView() {
 
         <div className="bx-glass rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-            <h3 className="text-sm font-semibold text-white flex items-center gap-2"><History className="h-4 w-4 text-[#2196f3]" /> Trades</h3>
+            <h3 className="text-sm font-semibold text-white flex items-center gap-2"><History className="h-4 w-4 text-[#ffd700]" /> Trades</h3>
             <div className="flex gap-1">
               {(["ALL", "WIN", "LOSE", "PENDING"] as const).map((f) => (
                 <button

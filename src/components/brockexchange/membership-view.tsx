@@ -176,8 +176,8 @@ export function MembershipView() {
           </div>
 
           <div className="flex items-center gap-3 md:border-l md:border-white/5 md:pl-5">
-            <div className="h-14 w-14 rounded-xl bg-[#2196f3]/15 border border-[#2196f3]/30 flex items-center justify-center">
-              <TrendingUp className="h-6 w-6 text-[#2196f3]" />
+            <div className="h-14 w-14 rounded-xl bg-[#ffd700]/15 border border-[#ffd700]/30 flex items-center justify-center">
+              <TrendingUp className="h-6 w-6 text-[#ffd700]" />
             </div>
             <div>
               <div className="text-[11px] text-muted-foreground uppercase tracking-wide">
@@ -258,7 +258,7 @@ export function MembershipView() {
                 <div className="absolute -top-2 right-3">
                   {isCurrent && (
                     <Badge
-                      className="bg-[#2196f3] text-white border-0 text-[10px]"
+                      className="bg-[#ffd700] text-white border-0 text-[10px]"
                       style={{ boxShadow: `0 0 10px ${tier.color}55` }}
                     >
                       CURRENT
@@ -327,10 +327,10 @@ export function MembershipView() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-muted-foreground flex items-center gap-1">
-                      <Shield className="h-3 w-3 text-[#2196f3]" />
+                      <Shield className="h-3 w-3 text-[#ffd700]" />
                       Fee Discount
                     </span>
-                    <span className="font-mono font-semibold text-[#42a5f5]">
+                    <span className="font-mono font-semibold text-[#ffed4e]">
                       {fmtPct(tier.tradeFeeDiscount)}
                     </span>
                   </div>
@@ -468,11 +468,11 @@ export function MembershipView() {
               </p>
             </div>
             <div className="rounded-lg p-4 bg-white/5 border border-white/5">
-              <Shield className="h-5 w-5 text-[#2196f3] mb-2" />
+              <Shield className="h-5 w-5 text-[#ffd700] mb-2" />
               <div className="text-sm font-semibold mb-1">Fee Discounts</div>
               <p className="text-xs text-muted-foreground">
                 Cut trade fees by up to{" "}
-                <span className="text-[#42a5f5] font-semibold">100%</span>. Diamond members
+                <span className="text-[#ffed4e] font-semibold">100%</span>. Diamond members
                 trade with zero fees.
               </p>
             </div>
@@ -486,7 +486,7 @@ export function MembershipView() {
               </p>
             </div>
             <div className="rounded-lg p-4 bg-white/5 border border-white/5">
-              <Headset className="h-5 w-5 text-[#42a5f5] mb-2" />
+              <Headset className="h-5 w-5 text-[#ffed4e] mb-2" />
               <div className="text-sm font-semibold mb-1">Priority Support</div>
               <p className="text-xs text-muted-foreground">
                 Gold and above get priority chat, dedicated managers, and 24/7 access

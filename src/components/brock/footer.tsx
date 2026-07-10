@@ -34,7 +34,7 @@ export function Footer() {
                   key={i}
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  className="h-9 w-9 inline-flex items-center justify-center rounded-md border border-white/10 text-muted-foreground hover:text-white hover:border-[#2196f3]/40 hover:bg-white/5 transition"
+                  className="h-9 w-9 inline-flex items-center justify-center rounded-md border border-white/10 text-muted-foreground hover:text-white hover:border-[#ffd700]/40 hover:bg-white/5 transition"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -75,7 +75,7 @@ export function Footer() {
 
         <div className="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            © {year} Brock Exchange. All rights reserved. Trading crypto carries risk.
+            © {year} NexTradePro. All rights reserved. Trading crypto carries risk.
           </p>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <button className="hover:text-white">Terms</button>

@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     await db.notification.create({
       data: {
         userId: user.id,
-        title: "Welcome to Brock Exchange!",
+        title: "Welcome to NexTradePro!",
         body: `Your account has been created. UID: ${uid}. You received 10,000 USDT demo balance to start trading.`,
         type: "success",
       },

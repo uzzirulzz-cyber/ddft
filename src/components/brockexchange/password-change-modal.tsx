@@ -40,7 +40,7 @@ export function PasswordChangeModal() {
       });
       const data = await res.json();
       if (res.ok) {
-        toast.success("Password changed. Welcome to Brock Exchange!");
+        toast.success("Password changed. Welcome to NexTradePro!");
         setUser({ ...user, mustChangePassword: false });
         setNext("");
         setConfirm("");

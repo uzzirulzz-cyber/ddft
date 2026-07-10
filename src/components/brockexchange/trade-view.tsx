@@ -216,7 +216,7 @@ export function TradeView() {
                     onClick={() => setSelectedCoin(c)}
                     className={`flex items-center gap-2 p-2 rounded-lg text-left transition-colors ${
                       active
-                        ? "bg-[#2196f3]/15 border border-[#2196f3]/40"
+                        ? "bg-[#ffd700]/15 border border-[#ffd700]/40"
                         : "border border-transparent hover:bg-white/5"
                     }`}
                   >
@@ -263,7 +263,7 @@ export function TradeView() {
               {user && (
                 <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
                   <span className="inline-flex items-center gap-1">
-                    <span className="h-1.5 w-4 rounded-full bg-[#42a5f5]" /> Bollinger
+                    <span className="h-1.5 w-4 rounded-full bg-[#ffed4e]" /> Bollinger
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <span className="h-1.5 w-4 rounded-full bg-[#E0E0E0]/70" /> MA
@@ -284,7 +284,7 @@ export function TradeView() {
               {!user && (
                 <div className="absolute inset-0 backdrop-blur-md flex items-center justify-center bg-[#050810]/60 rounded-lg">
                   <div className="text-center px-4">
-                    <Lock className="h-8 w-8 text-[#42a5f5] mx-auto mb-2" />
+                    <Lock className="h-8 w-8 text-[#ffed4e] mx-auto mb-2" />
                     <p className="text-sm font-semibold text-white">Register to see patterns</p>
                     <p className="text-xs text-muted-foreground mt-1 max-w-xs">
                       Bollinger Bands, MA, and support/resistance lines unlock after you sign in.
@@ -364,7 +364,7 @@ export function TradeView() {
                       disabled={!!activeTrade}
                       className={`py-2 rounded-lg text-xs border transition-colors ${
                         active
-                          ? "border-[#2196f3] bg-[#2196f3]/15 text-white"
+                          ? "border-[#ffd700] bg-[#ffd700]/15 text-white"
                           : "border-white/10 bg-white/5 text-muted-foreground hover:bg-white/10"
                       } disabled:opacity-50`}
                     >
@@ -397,8 +397,8 @@ export function TradeView() {
 
             {activeTrade ? (
               <div className="space-y-3">
-                <div className="rounded-lg p-3 border border-[#2196f3]/30 bg-[#2196f3]/10 text-center">
-                  <div className="text-[10px] uppercase tracking-wider text-[#42a5f5]">
+                <div className="rounded-lg p-3 border border-[#ffd700]/30 bg-[#ffd700]/10 text-center">
+                  <div className="text-[10px] uppercase tracking-wider text-[#ffed4e]">
                     Active trade · {activeTrade.symbol} ·{" "}
                     {activeTrade.direction === "UP" ? "UP" : "DOWN"}
                   </div>
@@ -452,7 +452,7 @@ export function TradeView() {
             {user && (
               <div className="text-xs text-muted-foreground text-center border-t border-white/5 pt-3">
                 Balance:{" "}
-                <span className="font-mono text-[#42a5f5]">
+                <span className="font-mono text-[#ffed4e]">
                   ${user.balance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
@@ -638,7 +638,7 @@ function CandlestickChart({ candles, pattern, showPatterns }: ChartProps) {
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#42a5f5"
+            stroke="#ffed4e"
             strokeWidth={1}
             opacity={0.6}
           />
@@ -652,7 +652,7 @@ function CandlestickChart({ candles, pattern, showPatterns }: ChartProps) {
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#42a5f5"
+            stroke="#ffed4e"
             strokeWidth={1}
             opacity={0.6}
           />
@@ -714,7 +714,7 @@ function CandlestickChart({ candles, pattern, showPatterns }: ChartProps) {
             x2={W - padding.right}
             y1={y(candles[candles.length - 1].c)}
             y2={y(candles[candles.length - 1].c)}
-            stroke="#2196f3"
+            stroke="#ffd700"
             strokeWidth={0.8}
             strokeDasharray="2 2"
             opacity={0.5}
@@ -724,7 +724,7 @@ function CandlestickChart({ candles, pattern, showPatterns }: ChartProps) {
             y={y(candles[candles.length - 1].c) - 8}
             width={70}
             height={16}
-            fill="#2196f3"
+            fill="#ffd700"
             opacity={0.9}
             rx={2}
           />
