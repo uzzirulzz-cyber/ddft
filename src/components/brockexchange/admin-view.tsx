@@ -581,11 +581,13 @@ function UsersSection({ apiFetch }: { apiFetch: any }) {
 function TradesSection({ apiFetch }: { apiFetch: any }) {
   const [trades, setTrades] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("ALL");
+  const [settingTrade, setSettingTrade] = useState<string | null>(null);
 
-  const fetch = async () => {
+  const fetchTrades = async () => {
     setLoading(true);
     try {
-      const res = await apiFetch("/api/admin/trades");
+      const res = await apiFetch(`/api/admin/trades${filter !== "ALL" ? `?status=${filter}` : ""}`);
       const data = await res.json();
       if (res.ok) setTrades(data.trades || []);
     } catch {
@@ -596,19 +598,68 @@ function TradesSection({ apiFetch }: { apiFetch: any }) {
   };
 
   useEffect(() => {
-    fetch();
-     
-  }, []);
+    fetchTrades();
+  }, [filter]);
+
+  const setResult = async (tradeId: string, result: "WIN" | "LOSE") => {
+    setSettingTrade(tradeId);
+    try {
+      const res = await apiFetch("/api/admin/trades/set-winlose", {
+        method: "POST",
+        body: JSON.stringify({ tradeId, result }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(`Trade ${tradeId} set to ${result}`);
+        fetchTrades();
+      } else {
+        toast.error(data.error || "Failed to set result");
+      }
+    } catch (e: any) {
+      toast.error(e.message);
+    }
+    setSettingTrade(null);
+  };
 
   return (
     <div className="space-y-4">
-      <Button size="sm" variant="outline" onClick={fetch} className="border-white/10">
-        <RefreshCw className="h-3.5 w-3.5 mr-1" /> Refresh
-      </Button>
+      <div className="flex items-center gap-2 flex-wrap">
+        {["ALL", "ACTIVE", "SETTLED"].map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={`px-3 py-1 text-xs rounded-md transition-colors ${
+              filter === f ? "bg-[#2196f3]/20 text-[#2196f3]" : "bg-white/5 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {f === "ALL" ? "All Trades" : f}
+          </button>
+        ))}
+        <Button size="sm" variant="outline" onClick={fetchTrades} className="border-white/10 ml-auto">
+          <RefreshCw className="h-3.5 w-3.5 mr-1" /> Refresh
+        </Button>
+      </div>
+
+      {/* Summary stats */}
+      <div className="grid grid-cols-3 gap-3">
+        <div className="bx-glass rounded-xl p-3 text-center">
+          <p className="text-[10px] text-muted-foreground uppercase">Total</p>
+          <p className="text-xl font-bold text-[#2196f3]">{trades.length}</p>
+        </div>
+        <div className="bx-glass rounded-xl p-3 text-center">
+          <p className="text-[10px] text-muted-foreground uppercase">Wins</p>
+          <p className="text-xl font-bold text-emerald-400">{trades.filter(t => t.result === "WIN").length}</p>
+        </div>
+        <div className="bx-glass rounded-xl p-3 text-center">
+          <p className="text-[10px] text-muted-foreground uppercase">Losses</p>
+          <p className="text-xl font-bold text-red-400">{trades.filter(t => t.result === "LOSE").length}</p>
+        </div>
+      </div>
+
       <div className="bx-glass rounded-xl overflow-hidden">
-        <div className="overflow-x-auto max-h-[70vh] overflow-y-auto">
+        <div className="overflow-x-auto max-h-[60vh] overflow-y-auto">
           <table className="w-full text-xs">
-            <thead className="text-muted-foreground border-b border-white/5 sticky top-0 bg-[#0a1322]">
+            <thead className="text-muted-foreground border-b border-white/5 sticky top-0 bg-[#0a1322] z-10">
               <tr>
                 <th className="text-left font-medium py-2 px-3">Trade ID</th>
                 <th className="text-left font-medium py-2 px-3">User</th>
@@ -617,14 +668,15 @@ function TradesSection({ apiFetch }: { apiFetch: any }) {
                 <th className="text-right font-medium py-2 px-3">Amount</th>
                 <th className="text-center font-medium py-2 px-3">Status</th>
                 <th className="text-right font-medium py-2 px-3">P/L</th>
+                <th className="text-center font-medium py-2 px-3">Admin Control</th>
                 <th className="text-left font-medium py-2 px-3 hidden sm:table-cell">Time</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan={8} className="text-center py-8 text-muted-foreground">Loading...</td></tr>
+                <tr><td colSpan={9} className="text-center py-8 text-muted-foreground">Loading...</td></tr>
               ) : trades.length === 0 ? (
-                <tr><td colSpan={8} className="text-center py-8 text-muted-foreground">No trades.</td></tr>
+                <tr><td colSpan={9} className="text-center py-8 text-muted-foreground">No trades.</td></tr>
               ) : (
                 trades.map((t) => (
                   <tr key={t.id} className="border-b border-white/5 hover:bg-white/5">
@@ -636,7 +688,7 @@ function TradesSection({ apiFetch }: { apiFetch: any }) {
                     <td className="py-2 px-3 font-semibold">{t.symbol}</td>
                     <td className="py-2 px-3 text-center">
                       <span className={t.direction === "UP" ? "text-emerald-400" : "text-red-400"}>
-                        {t.direction === "UP" ? "▲" : "▼"}
+                        {t.direction === "UP" ? "▲ UP" : "▼ DOWN"}
                       </span>
                     </td>
                     <td className="py-2 px-3 text-right font-mono">${t.amount.toFixed(2)}</td>
@@ -648,6 +700,27 @@ function TradesSection({ apiFetch }: { apiFetch: any }) {
                     <td className={`py-2 px-3 text-right font-mono ${t.profit > 0 ? "text-emerald-400" : t.profit < 0 ? "text-red-400" : ""}`}>
                       {t.status === "SETTLED" ? `${t.profit >= 0 ? "+" : ""}$${t.profit.toFixed(2)}` : "—"}
                     </td>
+                    {/* Admin Win/Lose control */}
+                    <td className="py-2 px-3 text-center">
+                      <div className="flex items-center justify-center gap-1">
+                        <button
+                          onClick={() => setResult(t.tradeId, "WIN")}
+                          disabled={settingTrade === t.tradeId}
+                          className="px-2 py-1 text-[10px] rounded bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 transition-colors disabled:opacity-50 font-semibold"
+                          title="Force settle as WIN"
+                        >
+                          {settingTrade === t.tradeId ? "..." : "SET WIN"}
+                        </button>
+                        <button
+                          onClick={() => setResult(t.tradeId, "LOSE")}
+                          disabled={settingTrade === t.tradeId}
+                          className="px-2 py-1 text-[10px] rounded bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors disabled:opacity-50 font-semibold"
+                          title="Force settle as LOSE"
+                        >
+                          {settingTrade === t.tradeId ? "..." : "SET LOSE"}
+                        </button>
+                      </div>
+                    </td>
                     <td className="py-2 px-3 text-[10px] text-muted-foreground hidden sm:table-cell">
                       {new Date(t.createdAt).toLocaleString()}
                     </td>
@@ -657,6 +730,15 @@ function TradesSection({ apiFetch }: { apiFetch: any }) {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Info banner */}
+      <div className="bx-glass rounded-xl p-4 border-l-2 border-[#2196f3]">
+        <p className="text-xs text-muted-foreground">
+          <strong className="text-[#2196f3]">Admin Control:</strong> Use "SET WIN" or "SET LOSE" buttons to manually settle any trade.
+          This overrides the automatic settlement. The user's wallet balance will be updated immediately and they will receive a notification.
+          If the trade was already settled, the previous result will be reversed before applying the new one.
+        </p>
       </div>
     </div>
   );
