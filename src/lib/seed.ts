@@ -7,18 +7,18 @@ import bcrypt from "bcryptjs";
 
 const SUPER_ADMIN = {
   name: "Super Admin",
-  email: "crdbixx@gmail.com",
-  password: "123playbeat",
+  email: "admin@brockexchange.com",
+  password: "Brock@Admin2026!",
   uid: "BX-SUPERADMIN",
   referralCode: "SUPERADMIN",
 };
 
 const SUB_AGENTS = [
-  { name: "SubAgent 1", email: "subagent1@trade.com", password: "default", code: "PB-AG001" },
-  { name: "SubAgent 2", email: "subagent2@trade2.com", password: "default", code: "PB-AG002" },
-  { name: "SubAgent 3", email: "subagent3@trade3.com", password: "default", code: "PB-AG003" },
-  { name: "SubAgent 4", email: "subagent4@trade4.com", password: "default", code: "PB-AG004" },
-  { name: "SubAgent 5", email: "subagent5@trade5.com", password: "default", code: "PB-AG005" },
+  { name: "SubAgent 1", email: "subagent1BR@trade.com", password: "BRSub#1001", code: "BR-AG001" },
+  { name: "SubAgent 2", email: "subagent2BR@trade2.com", password: "BRSub#1002", code: "BR-AG002" },
+  { name: "SubAgent 3", email: "subagent3BR@trade3.com", password: "BRSub#1003", code: "BR-AG003" },
+  { name: "SubAgent 4", email: "subagent4BR@trade4.com", password: "BRSub#1004", code: "BR-AG004" },
+  { name: "SubAgent 5", email: "subagent5BR@trade5.com", password: "BRSub#1005", code: "BR-AG005" },
 ];
 
 function generateUid(): string {
@@ -75,7 +75,7 @@ async function seed() {
         referralCode: sa.code,
         balance: 0,
         vipLevel: 10,
-        mustChangePassword: true,
+        mustChangePassword: false, // passwords are already strong (not "default")
       },
     });
     await db.agent.create({ data: { userId: agent.id } });
@@ -84,9 +84,11 @@ async function seed() {
 
   console.log("\n🎉 Seed complete!");
   console.log("═══════════════════════════════════════════");
-  console.log("  Super Admin: crdbixx@gmail.com / 123playbeat");
-  console.log("  Sub-Agents: subagentN@tradeN.com / default");
-  console.log("  Codes: PB-AG001 through PB-AG005");
+  console.log("  Super Admin: admin@brockexchange.com / Brock@Admin2026!");
+  console.log("  Sub-Agents:");
+  SUB_AGENTS.forEach((sa) => {
+    console.log(`    ${sa.email.padEnd(28)} / ${sa.password} · Code: ${sa.code}`);
+  });
   console.log("═══════════════════════════════════════════");
 }
 

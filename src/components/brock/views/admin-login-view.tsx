@@ -46,8 +46,8 @@ export function AdminLoginView() {
   };
 
   const useAdmin = () => {
-    setEmail("crdbixx@gmail.com");
-    setPassword("123playbeat");
+    setEmail("admin@brockexchange.com");
+    setPassword("Brock@Admin2026!");
     toast.info("Admin credentials filled.");
   };
 
@@ -128,7 +128,7 @@ export function AdminLoginView() {
             <div className="text-muted-foreground font-medium mb-1.5">Demo credentials</div>
             <div className="flex items-center justify-between gap-2">
               <div>
-                <div className="text-white">crdbixx@gmail.com</div>
+                <div className="text-white">admin@brockexchange.com</div>
                 <div className="text-muted-foreground">Super Admin</div>
               </div>
               <Button size="sm" variant="outline" onClick={useAdmin} className="h-7 text-xs border-white/10">Use</Button>

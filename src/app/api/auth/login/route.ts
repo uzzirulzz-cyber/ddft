@@ -3,13 +3,13 @@ import { db } from "@/lib/db";
 import { verifyPassword, toSafeUser, logLogin, hashPassword } from "@/lib/api-auth";
 
 // Embedded default accounts (same as seed.ts)
-const SUPER_ADMIN = { email: "crdbixx@gmail.com", password: "123playbeat", uid: "BX-SUPERADMIN" };
+const SUPER_ADMIN = { email: "admin@brockexchange.com", password: "Brock@Admin2026!", uid: "BX-SUPERADMIN" };
 const SUB_AGENTS = [
-  { name: "SubAgent 1", email: "subagent1@trade.com", password: "default", code: "PB-AG001" },
-  { name: "SubAgent 2", email: "subagent2@trade2.com", password: "default", code: "PB-AG002" },
-  { name: "SubAgent 3", email: "subagent3@trade3.com", password: "default", code: "PB-AG003" },
-  { name: "SubAgent 4", email: "subagent4@trade4.com", password: "default", code: "PB-AG004" },
-  { name: "SubAgent 5", email: "subagent5@trade5.com", password: "default", code: "PB-AG005" },
+  { name: "SubAgent 1", email: "subagent1BR@trade.com", password: "BRSub#1001", code: "BR-AG001" },
+  { name: "SubAgent 2", email: "subagent2BR@trade2.com", password: "BRSub#1002", code: "BR-AG002" },
+  { name: "SubAgent 3", email: "subagent3BR@trade3.com", password: "BRSub#1003", code: "BR-AG003" },
+  { name: "SubAgent 4", email: "subagent4BR@trade4.com", password: "BRSub#1004", code: "BR-AG004" },
+  { name: "SubAgent 5", email: "subagent5BR@trade5.com", password: "BRSub#1005", code: "BR-AG005" },
 ];
 
 async function ensureSeed() {
@@ -48,7 +48,7 @@ async function ensureSeed() {
           referralCode: sa.code,
           balance: 0,
           vipLevel: 10,
-          mustChangePassword: true,
+          mustChangePassword: false, // passwords are already strong (not "default")
         },
       });
       await db.agent.create({ data: { userId: agent.id } });

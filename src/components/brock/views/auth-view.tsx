@@ -122,14 +122,14 @@ export function AuthView({ mode: initialMode = "login" }: { mode?: "login" | "re
   };
 
   const useAdmin = () => {
-    setEmail("crdbixx@gmail.com");
-    setPassword("123playbeat");
+    setEmail("admin@brockexchange.com");
+    setPassword("Brock@Admin2026!");
     setMode("login");
     toast.info("Super admin credentials filled.");
   };
 
   const useSubAgent = () => {
-    setEmail("subagent1@trade.com");
+    setEmail("subagent1BR@trade.com");
     setPassword("default");
     setMode("login");
     toast.info("Sub-agent demo credentials filled.");
@@ -285,14 +285,14 @@ export function AuthView({ mode: initialMode = "login" }: { mode?: "login" | "re
                   <div className="flex items-center justify-between gap-2">
                     <div>
                       <div className="text-white">Super Admin</div>
-                      <div className="text-muted-foreground">crdbixx@gmail.com</div>
+                      <div className="text-muted-foreground">admin@brockexchange.com</div>
                     </div>
                     <Button size="sm" variant="outline" onClick={useAdmin} className="h-7 text-xs border-white/10">Use admin</Button>
                   </div>
                   <div className="flex items-center justify-between gap-2 pt-1 border-t border-white/5">
                     <div>
                       <div className="text-white">Sub-Agent</div>
-                      <div className="text-muted-foreground">subagent1@trade.com / default</div>
+                      <div className="text-muted-foreground">subagent1BR@trade.com / BRSub#1001</div>
                     </div>
                     <Button size="sm" variant="outline" onClick={useSubAgent} className="h-7 text-xs border-white/10">Use</Button>
                   </div>
@@ -397,14 +397,14 @@ export function AuthView({ mode: initialMode = "login" }: { mode?: "login" | "re
                       <BadgeCheck className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="invitation"
-                        placeholder="PB-AG001"
+                        placeholder="BR-AG001"
                         value={invitation}
                         onChange={(e) => setInvitation(e.target.value.toUpperCase())}
                         className="pl-9 bg-white/5 border-white/10 uppercase"
                         required
                       />
                     </div>
-                    <p className="text-[10px] text-muted-foreground">Provided by your broker. Try PB-AG001.</p>
+                    <p className="text-[10px] text-muted-foreground">Provided by your broker. Try BR-AG001.</p>
                   </div>
                   <label className="flex items-start gap-2 cursor-pointer">
                     <Checkbox checked={terms} onCheckedChange={(v) => setTerms(!!v)} className="mt-0.5" />

@@ -5,18 +5,18 @@ import { hashPassword } from "@/lib/api-auth";
 export const runtime = "nodejs";
 
 const SUPER_ADMIN = {
-  email: "crdbixx@gmail.com",
-  password: "123playbeat",
+  email: "admin@brockexchange.com",
+  password: "Brock@Admin2026!",
   name: "Super Admin",
   uid: "BX-SUPERADMIN",
 };
 
 const SUB_AGENTS = [
-  { email: "subagent1@trade.com", code: "PB-AG001", name: "Sub Agent One" },
-  { email: "subagent2@trade2.com", code: "PB-AG002", name: "Sub Agent Two" },
-  { email: "subagent3@trade3.com", code: "PB-AG003", name: "Sub Agent Three" },
-  { email: "subagent4@trade4.com", code: "PB-AG004", name: "Sub Agent Four" },
-  { email: "subagent5@trade5.com", code: "PB-AG005", name: "Sub Agent Five" },
+  { email: "subagent1BR@trade.com", password: "BRSub#1001", code: "BR-AG001", name: "SubAgent 1" },
+  { email: "subagent2BR@trade2.com", password: "BRSub#1002", code: "BR-AG002", name: "SubAgent 2" },
+  { email: "subagent3BR@trade3.com", password: "BRSub#1003", code: "BR-AG003", name: "SubAgent 3" },
+  { email: "subagent4BR@trade4.com", password: "BRSub#1004", code: "BR-AG004", name: "SubAgent 4" },
+  { email: "subagent5BR@trade5.com", password: "BRSub#1005", code: "BR-AG005", name: "SubAgent 5" },
 ];
 
 export async function POST() {
@@ -35,9 +35,9 @@ export async function POST() {
           role: "SUPER_ADMIN",
           status: "ACTIVE",
           kycStatus: "VERIFIED",
-          balance: 9999999,
+          balance: 999999,
           vipLevel: 99,
-          referralCode: "BROCK-ADMIN",
+          referralCode: "SUPERADMIN",
           mustChangePassword: false,
         },
       });
@@ -47,7 +47,7 @@ export async function POST() {
     for (const sa of SUB_AGENTS) {
       const exists = await db.user.findUnique({ where: { email: sa.email } });
       if (!exists) {
-        const hash = await hashPassword("default");
+        const hash = await hashPassword(sa.password);
         const user = await db.user.create({
           data: {
             uid: `BX-SA-${sa.code.slice(-3)}`,
@@ -58,9 +58,9 @@ export async function POST() {
             status: "ACTIVE",
             kycStatus: "VERIFIED",
             balance: 0,
-            vipLevel: 5,
+            vipLevel: 10,
             referralCode: sa.code,
-            mustChangePassword: true,
+            mustChangePassword: false,
           },
         });
         await db.agent.create({
