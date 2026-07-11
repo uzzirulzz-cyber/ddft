@@ -45,12 +45,6 @@ export function AdminLoginView() {
     }
   };
 
-  const useAdmin = () => {
-    setEmail("admin@brockexchange.com");
-    setPassword("Brock@Admin2026!");
-    toast.info("Admin credentials filled.");
-  };
-
   return (
     <main className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bx-grid-bg">
       {/* Background logo glow */}
@@ -123,17 +117,6 @@ export function AdminLoginView() {
               {!loading && <ArrowRight className="ml-2 h-4 w-4" />}
             </Button>
           </form>
-
-          <div className="bx-glass-soft rounded-lg p-3 mt-5 text-xs">
-            <div className="text-muted-foreground font-medium mb-1.5">Demo credentials</div>
-            <div className="flex items-center justify-between gap-2">
-              <div>
-                <div className="text-white">admin@brockexchange.com</div>
-                <div className="text-muted-foreground">Super Admin</div>
-              </div>
-              <Button size="sm" variant="outline" onClick={useAdmin} className="h-7 text-xs border-white/10">Use</Button>
-            </div>
-          </div>
 
           <button
             onClick={() => navigate("home")}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Lock, Mail, Shield, ArrowRight, ShieldCheck } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, Shield, ArrowRight } from "lucide-react";
 import { useAuth, type AuthUser } from "@/lib/auth-store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,12 +44,6 @@ export function AdminLoginView() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const useAdmin = () => {
-    setEmail("admin@brockexchange.com");
-    setPassword("Brock@Admin2026!");
-    toast.info("Super admin credentials filled.");
   };
 
   return (
@@ -142,26 +136,6 @@ export function AdminLoginView() {
               {!loading && <ArrowRight className="ml-2 h-4 w-4" />}
             </Button>
           </form>
-
-          <div className="bx-glass-soft rounded-lg p-3 text-xs space-y-2 mt-4">
-            <div className="text-muted-foreground font-medium flex items-center gap-1.5">
-              <ShieldCheck className="h-3 w-3" /> Demo credential
-            </div>
-            <div className="flex items-center justify-between gap-2">
-              <div>
-                <div className="text-white">Super Admin</div>
-                <div className="text-muted-foreground">admin@brockexchange.com</div>
-              </div>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={useAdmin}
-                className="h-7 text-xs border-white/10"
-              >
-                Use admin
-              </Button>
-            </div>
-          </div>
         </div>
 
         <div className="mt-6 text-center">

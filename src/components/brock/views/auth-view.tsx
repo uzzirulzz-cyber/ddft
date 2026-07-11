@@ -121,20 +121,6 @@ export function AuthView({ mode: initialMode = "login" }: { mode?: "login" | "re
     }
   };
 
-  const useAdmin = () => {
-    setEmail("admin@brockexchange.com");
-    setPassword("Brock@Admin2026!");
-    setMode("login");
-    toast.info("Super admin credentials filled.");
-  };
-
-  const useSubAgent = () => {
-    setEmail("subagent1BR@trade.com");
-    setPassword("default");
-    setMode("login");
-    toast.info("Sub-agent demo credentials filled.");
-  };
-
   return (
     <main className="flex-1 pt-16 bx-fade-in min-h-[calc(100vh-4rem)] grid lg:grid-cols-[45%_55%]">
       {/* Left brand panel */}
@@ -280,24 +266,6 @@ export function AuthView({ mode: initialMode = "login" }: { mode?: "login" | "re
                   </Button>
                 </form>
 
-                <div className="bx-glass-soft rounded-lg p-3 text-xs space-y-2">
-                  <div className="text-muted-foreground font-medium">Demo credentials</div>
-                  <div className="flex items-center justify-between gap-2">
-                    <div>
-                      <div className="text-white">Super Admin</div>
-                      <div className="text-muted-foreground">admin@brockexchange.com</div>
-                    </div>
-                    <Button size="sm" variant="outline" onClick={useAdmin} className="h-7 text-xs border-white/10">Use admin</Button>
-                  </div>
-                  <div className="flex items-center justify-between gap-2 pt-1 border-t border-white/5">
-                    <div>
-                      <div className="text-white">Sub-Agent</div>
-                      <div className="text-muted-foreground">subagent1BR@trade.com / BRSub#1001</div>
-                    </div>
-                    <Button size="sm" variant="outline" onClick={useSubAgent} className="h-7 text-xs border-white/10">Use</Button>
-                  </div>
-                </div>
-
                 <p className="text-center text-sm text-muted-foreground">
                   No account?{" "}
                   <button onClick={() => setMode("register")} className="text-[#ffed4e] hover:underline font-medium">
@@ -397,14 +365,14 @@ export function AuthView({ mode: initialMode = "login" }: { mode?: "login" | "re
                       <BadgeCheck className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="invitation"
-                        placeholder="BR-AG001"
+                        placeholder="Enter your invitation code"
                         value={invitation}
                         onChange={(e) => setInvitation(e.target.value.toUpperCase())}
                         className="pl-9 bg-white/5 border-white/10 uppercase"
                         required
                       />
                     </div>
-                    <p className="text-[10px] text-muted-foreground">Provided by your broker. Try BR-AG001.</p>
+                    <p className="text-[10px] text-muted-foreground">Provided by your broker.</p>
                   </div>
                   <label className="flex items-start gap-2 cursor-pointer">
                     <Checkbox checked={terms} onCheckedChange={(v) => setTerms(!!v)} className="mt-0.5" />
